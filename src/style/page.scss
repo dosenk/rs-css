@@ -1,0 +1,32 @@
+.room {
+  width: 50%;
+  min-width: 640px;
+  height: 100vh;
+  background-color: aquamarine;
+  position: relative;
+
+  &-line {
+    position: absolute;
+  }
+
+  &__horisontal-line {
+    border-left: 3px solid $room-line-color;
+    height: calc(100vh - 376px);
+    left: 262px;
+  }
+
+  &__skew-line {
+    border-bottom: 3px solid $room-line-color;
+    bottom: 235px;
+    width: 299px;
+    transform-origin: 0 100%;
+    transform: rotate(-28deg);
+  }
+
+  &__vertical-line {
+    border-bottom: 3px solid $room-line-color;
+    width: calc(100% - 262px);
+    right: 0;
+    bottom: 40%;
+  }
+}
