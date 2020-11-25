@@ -1,32 +1,72 @@
-.room {
-  width: 50%;
-  min-width: 640px;
-  height: 100vh;
-  background-color: aquamarine;
+body {
+  font-family: 'NerkoOne';
+}
+
+.page {
+  float: right;
   position: relative;
-
-  &-line {
-    position: absolute;
+  top: 50px;
+  width: 50%;
+  .level {
+    @include dFlex(space-around);
+    &-change {
+      width: 60px;
+      height: 60px;
+      position: relative;
+      right: 0;
+      transition: all 0.3s ease;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &-prev {
+      background: url('./assets/images/left-arrow.png') no-repeat;
+      background-size: contain;
+      &:hover {
+        background: url('./assets/images/left-arrow-hover.png') no-repeat;
+        background-size: contain;
+        right: 8px;
+      }
+    }
+    &-next {
+      background: url('./assets/images/right-arrow.png') no-repeat;
+      background-size: contain;
+      &:hover {
+        background: url('./assets/images/right-arrow-hover.png') no-repeat;
+        background-size: contain;
+        right: -8px;
+      }
+    }
+    &-name {
+      font-size: $middle-max_fs;
+    }
   }
 
-  &__horisontal-line {
-    border-left: 3px solid $room-line-color;
-    height: calc(100vh - 376px);
-    left: 262px;
-  }
+  .all-levels {
+    width: 98%;
+    height: 40px;
+    @include dFlex(space-around);
+    margin: 0 auto;
 
-  &__skew-line {
-    border-bottom: 3px solid $room-line-color;
-    bottom: 235px;
-    width: 299px;
-    transform-origin: 0 100%;
-    transform: rotate(-28deg);
-  }
-
-  &__vertical-line {
-    border-bottom: 3px solid $room-line-color;
-    width: calc(100% - 262px);
-    right: 0;
-    bottom: 40%;
+    &__circle {
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      border-radius: 50%;
+      //   border: 1px solid black;
+      transition: transform 0.2s ease;
+      &:hover {
+        transform: scale(1.15);
+        box-shadow: 0 0 5px 1px gray;
+      }
+    }
+    .level-off {
+      background: url('./assets/images/level-circle-blue.png') no-repeat;
+      background-size: contain;
+    }
+    .level-on {
+      background: url('./assets/images/level-circle-on.png') no-repeat;
+      background-size: contain;
+    }
   }
 }

@@ -1,0 +1,35 @@
+.task {
+  width: 50%;
+  //   height: 300px;
+  position: absolute;
+  right: 0;
+  top: 160px;
+  &__name {
+    text-align: center;
+    font-size: $middle-min_fs;
+  }
+  &-wrapper {
+    margin: 0 auto;
+    width: 98%;
+    height: 100%;
+    @include dFlex(space-between);
+    &__info {
+      width: 53%;
+    }
+    &__examples {
+      width: 43%;
+    }
+    &__delimiter {
+      width: 2px;
+      height: calc(100% - 0);
+      &::after {
+        content: '';
+        position: relative;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        border-left: 2px solid black;
+      }
+    }
+  }
+}

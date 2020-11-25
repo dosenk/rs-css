@@ -1,0 +1,5 @@
+@mixin dFlex($jstf-cntt: center, $algn-itms: center) {
+  display: flex;
+  justify-content: $jstf-cntt;
+  align-items: $algn-itms;
+}

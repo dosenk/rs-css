@@ -1,0 +1,68 @@
+.game {
+  float: left;
+  height: 100vh;
+  width: 50%;
+  @include dFlex();
+  background-color: $game-bg-color;
+  .room {
+    $line-ident: 321px;
+    @include dFlex();
+    width: 100%;
+    height: 80%;
+
+    .shelf {
+      width: $shelf-size;
+      &__wrapper {
+        &_surface {
+          width: 100%;
+          height: 90px;
+          background-color: $shelf-color;
+          transform-origin: bottom;
+          transform: perspective(100px) rotateX(15deg);
+        }
+        &_edge {
+          width: 100%;
+          height: 10px;
+          background-color: $shelf-edge-color;
+          transform-origin: top;
+          transform: perspective(100px) rotateX(-10deg);
+          box-shadow: -5px 8px 16px rgba(0, 0, 0, 0.5);
+        }
+      }
+      &__items {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        top: 68px;
+        z-index: 2;
+        &_image {
+          width: $image-size;
+          height: 180px;
+          position: relative;
+          display: flex;
+          flex-direction: column-reverse;
+          .image__wrapper {
+            height: 125px;
+            display: flex;
+            align-items: flex-end;
+            animation: MoveUpDown 1s linear infinite;
+            position: absolute;
+            top: 0;
+            & > img {
+              width: 100%;
+            }
+          }
+          @keyframes MoveUpDown {
+            0%,
+            100% {
+              top: 0;
+            }
+            50% {
+              top: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

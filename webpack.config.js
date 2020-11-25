@@ -13,7 +13,9 @@ module.exports = {
   },
   output: {
     filename: '[name].[contenthash].js',
-    path: isDev ? path.resolve(__dirname, 'dist') : path.resolve(__dirname, 'rs-css'),
+    path: isDev
+      ? path.resolve(__dirname, 'dist')
+      : path.resolve(__dirname, 'rs-css'),
   },
   devServer: {
     port: 4200,
@@ -42,10 +44,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/u,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.s[ca]ss$/u,

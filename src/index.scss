@@ -1,7 +1,7 @@
 @import '~reset-css', '~normalize.css';
 @import './style/abstracts/variables', './style/abstracts/mixins',
   './style/abstracts/functions';
-// @import './style/components/'
+@import './style/components/shadow.scss';
 @import './style/header.scss', './style/page.scss', './style/game.scss',
   './style/editor.scss', './style/viewer.scss', './style/task.scss',
   './style/scrollbar.scss', './style/footer.scss';
