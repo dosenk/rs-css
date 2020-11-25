@@ -38,6 +38,7 @@ body {
       }
     }
     &-name {
+      letter-spacing: 6px;
       font-size: $middle-max_fs;
     }
   }
@@ -53,7 +54,8 @@ body {
       height: 25px;
       cursor: pointer;
       border-radius: 50%;
-      //   border: 1px solid black;
+      @include dFlex();
+      color: #ffffff;
       transition: transform 0.2s ease;
       &:hover {
         transform: scale(1.15);
