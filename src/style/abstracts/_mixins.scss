@@ -3,3 +3,10 @@
   justify-content: $jstf-cntt;
   align-items: $algn-itms;
 }
+
+@mixin setFont($f-style, $f-size, $f-color, $l-height) {
+  font-family: $f-style;
+  color: $f-color;
+  font-size: $f-size;
+  line-height: $l-height;
+}

@@ -12,6 +12,24 @@ $shelf-edge-color: rgb(14, 68, 41);
   font-family: 'IndieFlower-Regular';
   src: url('./assets/fonts/IndieFlower-Regular.ttf');
 }
+@font-face {
+  font-family: 'FiraCode-Regular';
+  src: url('./assets/fonts/FiraCode-Regular.ttf');
+}
+@font-face {
+  font-family: 'FiraCode-Medium';
+  src: url('./assets/fonts/FiraCode-Medium.ttf');
+}
+@font-face {
+  font-family: 'FiraCode-SemiBold';
+  src: url('./assets/fonts/FiraCode-SemiBold.ttf');
+}
+
+$NerkoOne-Regular: 'NerkoOne', cursive;
+$IndieFlower-Regular: 'IndieFlower-Regular', cursive;
+$FiraCode-Regular: 'FiraCode-Regular', monospace;
+$FiraCode-Medium: 'FiraCode-Medium', monospace;
+$FiraCode-SemiBold: 'FiraCode-SemiBold', monospace;
 
 $big-fs: 37px;
 $middle-max_fs: 30px;
