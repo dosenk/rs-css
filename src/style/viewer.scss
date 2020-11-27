@@ -19,8 +19,7 @@
     width: 100%;
     height: 40px;
     background-color: #f7b403;
-    margin-left: 1px;
-    margin-right: 1px;
+    margin: 1px;
     @include dFlex(space-between);
     font-weight: 600;
     padding: 0 5px 0 5px;
@@ -48,7 +47,9 @@
     margin-bottom: 1px;
     @include setFont($FiraCode-Regular, 13px, #c6c6c6, 1.39em);
     &_code {
-      padding-left: 20px;
+      div {
+        padding-left: 20px;
+      }
     }
   }
 }

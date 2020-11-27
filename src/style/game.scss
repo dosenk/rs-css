@@ -6,10 +6,13 @@
   background-color: $game-bg-color;
   .room {
     $line-ident: 321px;
-    @include dFlex();
+    @include dFlex(space-around);
+    flex-direction: column;
     width: 100%;
     height: 40%;
-
+    .task-name {
+      font-size: $middle-max_fs;
+    }
     .shelf {
       width: $shelf-size;
       &__wrapper {
@@ -32,34 +35,50 @@
       &__items {
         display: flex;
         justify-content: center;
+        column-gap: 20px;
         position: relative;
         top: 68px;
+        height: 100px;
         z-index: 2;
-        &_image {
+        & > shadow {
           width: $image-size;
-          height: 180px;
-          position: relative;
+          height: 100px;
+        }
+        book {
           display: flex;
-          flex-direction: column-reverse;
-          .image__wrapper {
-            height: 125px;
-            display: flex;
-            align-items: flex-end;
-            animation: MoveUpDown 1s linear infinite;
-            position: absolute;
-            top: 0;
-            & > img {
-              width: 100%;
-            }
+          width: $image-size;
+          height: 100%;
+          background: url('./assets/images/book.png') no-repeat;
+          background-size: contain;
+          background-position: bottom;
+        }
+        flower {
+          display: flex;
+          width: $image-size;
+          height: 100%;
+          background: url('./assets/images/flower.png') no-repeat;
+          background-size: contain;
+          background-position: bottom;
+        }
+
+        book shadow,
+        flower {
+          position: relative;
+          margin: 0 auto;
+          bottom: 35px;
+        }
+
+        .moved {
+          animation: MoveUpDown 1s linear infinite;
+          position: relative;
+        }
+        @keyframes MoveUpDown {
+          0%,
+          100% {
+            bottom: 25px;
           }
-          @keyframes MoveUpDown {
-            0%,
-            100% {
-              top: 0;
-            }
-            50% {
-              top: 15px;
-            }
+          50% {
+            bottom: 50px;
           }
         }
       }

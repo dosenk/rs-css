@@ -52,15 +52,12 @@
     </section>
 
     <section class="task">
-        <div class="task__name">
-            <h2>Select the book directly on a shelf</h2>
-        </div>
         <div class="task-wrapper">
             <div class="task-wrapper__info">
-                <h3>Child Selector</h3>
-                <p class="task-wrapper__info_text">
-                    Select direct children of an element
-                    <span class="syntax">&nbsp;A > B&nbsp;</span>
+                <h3 class="instructions-name">Child Selector</h3>
+                <h4 class="instructions-surName">Select direct children of an element
+                    <strong>&nbsp;A > B&nbsp;</strong></h4>
+                <p class="task-wrapper__info_instructions">
                     You can select elements that are direct children
                     of other elements. A child element is any element
                     that is nested directly in another element.
@@ -72,9 +69,9 @@
             <div class="task-wrapper__examples">
                 <h3>Examples</h3>
                 <p class="task-wrapper__examples_text">
-                    <span class="syntax">&nbsp;A > B&nbsp;</span> selects all
-                    <span class="syntax">&nbsp;B&nbsp;</span> that are a
-                    direct children <span class="syntax">&nbsp;A&nbsp;</span>
+                    <strong>&nbsp;A > B&nbsp;</strong> selects all
+                    <strong>&nbsp;B&nbsp;</strong> that are a
+                    direct children <strong>&nbsp;A&nbsp;</strong>
                 </p>
             </div>
         </div>
@@ -115,18 +112,59 @@
                     <div class="">&lt;plate /&gt;</div>
                     <div class="">&lt;bento /&gt;</div>
                 </div>
-                <div class="viewer__window_shelf-end">&lt;div&gt;</div>
+                <div class="viewer__window_shelf-end">&lt;/div&gt;</div>
             </div>
+    </section>
 
+    <section class="editor">
+        <div class="editor-wrapper">
+            <div class="editor__header">
+                <p class="editor__header_name">CSS Editor</p>
+                <p class="editor__header_file-name">style.css</p>
+            </div>
+            <div class="editor__line-numbers">
+                <p>1</p>
+                <p>2</p>
+                <p>3</p>
+                <p>4</p>
+                <p>5</p>
+                <p>6</p>
+                <p>7</p>
+                <p>8</p>
+                <p>9</p>
+                <p>10</p>
+                <p>11</p>
+                <p>12</p>
+                <p>13</p>
+                <p>14</p>
+                <p>15</p>
+                <p>16</p>
+                <p>17</p>
+                <p>18</p>
+                <p>19</p>
+                <p>20</p>
+            </div>
+            <div class="editor__window">
+                <input class="editor__window_input" autofocus type="text" placeholder="Type in a CSS selector">
+                <button class="editor__window_btn">Enter</button>
+                <div class="editor__window_code">
+                </div>
+            </div>
     </section>
 
     <section class="game">
         <div class="room">
+            <h2 class="task-name">Select the book directly on a shelf</h2>
             <div class="shelf">
                 <div class="shelf__items">
-                    <div class="shelf__items_image">
+
+                    <!-- <book></book>
+                    <flower class='small'></flower>
+                    <book></book> -->
+
+                    <!-- <div class="shelf__items_image">
                         <div class="image__wrapper">
-                            <img src="./assets/images/flower.png" alt="">
+                            
                         </div>
                         <div class="shadowFrame">
                             <svg version="2" class="shadow" viewBox="0 0 122.436 39.744">
@@ -138,7 +176,7 @@
 
                     <div class="shelf__items_image">
                         <div class="image__wrapper">
-                            <img src="./assets/images/book.png" alt="">
+                            <book />
                         </div>
                         <div class="shadowFrame">
                             <svg version="2" class="shadow" viewBox="0 0 122.436 39.744">
@@ -146,7 +184,7 @@
                                     ry="8.916" />
                             </svg>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="shelf__wrapper">
                     <div class="shelf__wrapper_surface"></div>
@@ -155,6 +193,17 @@
             </div>
         </div>
     </section>
+    <footer>
+        <div class="footer-wrapper">
+            <div class="footer-wrapper__logo"></div>
+            <div class="footer-wrapper__info">
+                CSS Disign is created by Dosenk &nbsp;
+                <a href="https://github.com/dosenk" target="_blank">GitHub</a> &#x25CF;
+                <a href="https://www.facebook.com/dmtr.osipenko" target="_blank">Facebook</a>
+                <img class="footer__info_logo" src="./assets/images/rs_school_logo.svg" alt="rs-school">
+            </div>
+        </div>
+    </footer>
 
 </body>
 

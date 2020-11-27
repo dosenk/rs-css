@@ -1,4 +1,7 @@
 .shadowFrame {
+  position: relative;
+  right: 3px;
+  bottom: 18px;
   display: flex;
   justify-content: center;
   width: $image-size;
@@ -14,9 +17,9 @@
 @keyframes shrink {
   0%,
   100% {
-    width: 50%;
+    width: 60%;
   }
   50% {
-    width: 80%;
+    width: 90%;
   }
 }

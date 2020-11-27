@@ -1,21 +1,17 @@
 .task {
   width: 50%;
-  //   height: 300px;
   position: absolute;
   right: 0;
   top: 160px;
-  &__name {
-    text-align: center;
-    font-size: $middle-min_fs;
-    letter-spacing: 0.5px;
-  }
   &-wrapper {
     margin: 0 auto;
     margin-top: 5px;
     width: 98%;
-    // height: 100%;
     @include dFlex(space-between, flex-start);
     font-family: 'IndieFlower-Regular', cursive;
+    strong {
+      background-color: burlywood;
+    }
     &__info {
       width: 53%;
       & > h3 {
@@ -25,12 +21,13 @@
         color: navy;
         letter-spacing: 0.5px;
       }
+      & > h4 {
+        font-size: $small-fs;
+        font-weight: 600;
+      }
       & > p {
         margin-top: 7px;
         line-height: 20px;
-        & > span.syntax {
-          background-color: burlywood;
-        }
       }
     }
     &__examples {
@@ -45,9 +42,6 @@
       & > p {
         margin-top: 7px;
         line-height: 20px;
-        & > span.syntax {
-          background-color: burlywood;
-        }
       }
     }
     &__delimiter {
