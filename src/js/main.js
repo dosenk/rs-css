@@ -4,6 +4,7 @@ window.onload = () => {
   const currentLevel = 2;
   const task = new Task(currentLevel);
   task.render();
+  task.addListeners();
 
   const a = document.querySelector('.shelf__items');
   a.addEventListener('click', (e) => {

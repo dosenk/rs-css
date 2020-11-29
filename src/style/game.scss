@@ -14,7 +14,7 @@
       font-size: $middle-max_fs;
     }
     .shelf {
-      width: $shelf-size;
+      // width: $shelf-size;
       &__wrapper {
         &_surface {
           width: 100%;
@@ -37,9 +37,10 @@
         justify-content: center;
         column-gap: 20px;
         position: relative;
-        top: 68px;
+        top: 75px;
         height: 100px;
         z-index: 2;
+        padding: 0 calc(#{$image-size} / 4.8);
         & > shadow {
           width: $image-size;
           height: 100px;
@@ -48,7 +49,7 @@
           display: flex;
           width: $image-size;
           height: 100%;
-          background: url('./assets/images/book.png') no-repeat;
+          background: url('./assets/new_img/book_broun.png') no-repeat;
           background-size: contain;
           background-position: bottom;
         }
@@ -56,7 +57,33 @@
           display: flex;
           width: $image-size;
           height: 100%;
-          background: url('./assets/images/flower.png') no-repeat;
+          background: url('./assets/new_img/flower_2.png') no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+        tel {
+          display: flex;
+          width: $image-size;
+          height: 100%;
+          background: url('./assets/new_img/tel_yellow.png') no-repeat;
+          background-size: contain;
+          background-position: bottom;
+          margin: 0 auto;
+        }
+        mat {
+          // display: flex;
+          position: relative;
+          width: $image-size;
+          height: 100%;
+          background: url('./assets/new_img/mat.png') no-repeat;
+          background-size: contain;
+          background-position: bottom;
+        }
+        clock {
+          display: flex;
+          width: $image-size;
+          height: 100%;
+          background: url('./assets/new_img/clock_red.png') no-repeat;
           background-size: contain;
           background-position: bottom;
         }
@@ -65,20 +92,88 @@
         flower {
           position: relative;
           margin: 0 auto;
-          bottom: 35px;
+          bottom: 15px;
+        }
+        book.small > shadow {
+          position: relative;
+          bottom: -3px;
         }
 
+        mat book {
+          position: relative;
+          margin: 0 auto;
+          bottom: 8px;
+        }
+        mat > book.small {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          & > :last-child {
+            bottom: 18px;
+          }
+        }
+
+        book > book.small {
+          bottom: 25px;
+        }
+
+        book.small > book.small {
+          bottom: 0;
+        }
+        .small book {
+          position: absolute;
+          bottom: 0;
+        }
+        book book,
+        book mat {
+          position: relative;
+          bottom: 10px;
+        }
         .moved {
-          animation: MoveUpDown 1s linear infinite;
+          animation: MoveUpDown 1.5s linear infinite;
           position: relative;
         }
+
+        .green {
+          display: flex;
+          width: $image-size;
+          height: 100%;
+          background: url('./assets/new_img/tel_green.png') no-repeat;
+          background-size: contain;
+          background-position: center bottom;
+        }
+
+        .small .moved {
+          // background-color: #fff;
+        }
+
+        .small {
+          width: calc(#{$image-size} / 2);
+          margin: 0 auto;
+          margin-bottom: 5px;
+        }
+
         @keyframes MoveUpDown {
           0%,
           100% {
-            bottom: 25px;
+            bottom: 35px;
           }
           50% {
-            bottom: 50px;
+            bottom: 60px;
+          }
+        }
+        .active {
+          // animation: MoveLeftRight 0.5s linear infinite;
+          // position: relative;
+          background-color: #fff;
+        }
+        @keyframes MoveLeftRight {
+          0%,
+          100% {
+            left: -5px;
+          }
+          50% {
+            left: 5px;
           }
         }
       }

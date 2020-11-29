@@ -10,41 +10,45 @@ export default class Task {
   }
 
   static prepareDataForViewer(dataViewer) {
-    const tag = /<(book|flower)\s(class='[a-z\s]*?'\s)?\/>/gm;
-    const classMoved = /\sclass='moved'|\smoved/gm;
-    const pairedTagBook = /<(book)(>)?.*<\/book>/gm;
-    const pairedTagPlace = /<(plate)(>)?.*<\/plate>/gm;
+    const regSingleTag = /<(mat|book|flower|tel|clock)\s?(class='[a-z\s]*?'\s)?\/>/gm;
+    const regClassMoved = /\sclass='moved'|\smoved/gm;
 
-    let stagedData = dataViewer.replace(classMoved, '');
+    const regPairedTags = [
+      /<(book|mat)\s?(class='.{5,15}')?>/gm,
+      /<\/(book|mat)>/gm,
+    ];
 
-    stagedData = stagedData.replace(tag, (str) => {
+    let stagedData = dataViewer.replace(regClassMoved, '');
+
+    stagedData = stagedData.replace(regSingleTag, (str) => {
       return `<div>&lt;${str.slice(1, -1)}&gt;</div>`;
     });
 
-    stagedData = stagedData.replace(pairedTagBook, (str, p1, p2) => {
-      const closeTag = p2 === undefined ? ' ' : '>';
-      return `<div>&lt;${p1}${closeTag}${str.slice(
-        p1.length + 2,
-        -p1.length - 3
-      )}&lt;/${p1}&gt;</div>`;
-    });
-
-    return stagedData.replace(pairedTagPlace, (str, p1, p2) => {
-      const closeTag = p2 === undefined ? ' ' : '>';
-      return `<div>&lt;${p1}${closeTag}${str.slice(
-        p1.length + 2,
-        -p1.length - 3
-      )}&lt;/${p1}&gt;</div>`;
-    });
+    function replaceData(strForReplace, reg, i) {
+      const startHtml = !i ? '<div>&lt;' : '&lt;';
+      const endHtml = i ? '&gt;</div>' : '&gt;';
+      const res = strForReplace.replace(reg, (str) => {
+        return `${startHtml}${str.slice(1, -1)}${endHtml}`;
+      });
+      return res;
+    }
+    for (let i = 0; i < regPairedTags.length; i += 1) {
+      stagedData = replaceData(stagedData, regPairedTags[i], i);
+    }
+    return stagedData;
   }
 
   static prepareDataForImages(dataImages) {
-    const tag = /<(book|flower)\s(class='[a-z\s]*?'\s)?\/>/gm;
-    const shadow =
-      '<div class="shadowFrame"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>';
+    const tag = /<(mat|book|flower|tel|clock)\s(class='[a-z\s]*?'\s)?\/>/gm;
     return dataImages.replace(tag, (str, p1, p2) => {
-      let res = `<${p1} ${p2}></${p1}>`;
-      if (p2.indexOf('moved') > 0) res = `<shadow>${res}${shadow}</shadow>`;
+      const tagClass = p2 || '';
+      let res = `<${p1} ${tagClass}></${p1}>`;
+      if (tagClass.indexOf('moved') > 0) {
+        const shadowClass =
+          tagClass.indexOf('small') > 0 ? 'shadowFrame small' : 'shadowFrame';
+        const shadow = `<div class="${shadowClass}"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>`;
+        res = `<shadow>${res}${shadow}</shadow>`;
+      }
       return res;
     });
   }
@@ -63,6 +67,7 @@ export default class Task {
     this.images = document.querySelector('.shelf__items');
 
     this.viewer.innerHTML = Task.prepareDataForViewer(dataOfLevel.HTMLviewer);
+
     this.images.innerHTML = Task.prepareDataForImages(dataOfLevel.HTMLviewer);
     this.taskName.innerText = dataOfLevel.taskName;
     this.levelName.innerText = this.level;
@@ -70,5 +75,17 @@ export default class Task {
     this.instructionName.innerText = dataOfLevel.instructionName;
     this.instructionSurName.innerHTML = dataOfLevel.instructionSurName;
     this.instruction.innerHTML = dataOfLevel.instruction;
+  }
+
+  addListeners() {
+    this.images.addEventListener('mouseover', (e) => {
+      if (e.target.classList.contains('small')) {
+        console.log(e.target.tagName, e.target.classList, e.target.parentNode);
+        e.target.classList.add('active');
+        e.target.onmouseleave = () => {
+          e.target.classList.remove('active');
+        };
+      }
+    });
   }
 }

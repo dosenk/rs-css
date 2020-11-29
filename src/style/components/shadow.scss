@@ -1,13 +1,14 @@
 .shadowFrame {
   position: relative;
-  right: 3px;
-  bottom: 18px;
+  // right: 10px;
+  bottom: 30px;
   display: flex;
   justify-content: center;
   width: $image-size;
 }
 .shadow {
-  animation: shrink 1s linear infinite;
+  position: relative;
+  animation: shrink 1.5s linear infinite;
   transform-origin: center center;
   ellipse {
     transform-origin: center center;
@@ -18,8 +19,10 @@
   0%,
   100% {
     width: 60%;
+    bottom: 0;
   }
   50% {
     width: 90%;
+    bottom: calc(#{$image-size} / 12);
   }
 }
