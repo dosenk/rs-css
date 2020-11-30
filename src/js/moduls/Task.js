@@ -10,25 +10,24 @@ export default class Task {
   }
 
   static prepareDataForViewer(dataViewer) {
-    const regSingleTag = /<(mat|book|flower|tel|clock)\s?(class='[a-z\s]*?'\s)?\/>/gm;
+    const regSingleTag = /<(mat|book|flower|tel|clock)\s(class='[a-z\s]*')?\s*(id='q\d*')\s*\/>/gm;
     const regClassMoved = /\sclass='moved'|\smoved/gm;
 
     const regPairedTags = [
-      /<(book|mat)\s?(class='.{5,15}')?>/gm,
-      /<\/(book|mat)>/gm,
+      /<(book|mat)\s?(class='.{5,15}')?\s?(id='q\d?')\s?>/gm,
+      /<\/(book|mat)()>/gm,
     ];
 
     let stagedData = dataViewer.replace(regClassMoved, '');
-
-    stagedData = stagedData.replace(regSingleTag, (str) => {
-      return `<div>&lt;${str.slice(1, -1)}&gt;</div>`;
+    stagedData = stagedData.replace(regSingleTag, (str, p1, p2, p3) => {
+      return `<div ${p3}>&lt;${p1} ${p2 || ''} /&gt;</div>`;
     });
 
     function replaceData(strForReplace, reg, i) {
-      const startHtml = !i ? '<div>&lt;' : '&lt;';
-      const endHtml = i ? '&gt;</div>' : '&gt;';
-      const res = strForReplace.replace(reg, (str) => {
-        return `${startHtml}${str.slice(1, -1)}${endHtml}`;
+      const res = strForReplace.replace(reg, (str, p1, p2, p3) => {
+        const startHtml = !i ? `<div ${p3}>&lt;` : '&lt;';
+        const endHtml = i ? '&gt;</div>' : '&gt;';
+        return `${startHtml}${p1} ${p2 || ''}${endHtml}`;
       });
       return res;
     }
@@ -39,10 +38,10 @@ export default class Task {
   }
 
   static prepareDataForImages(dataImages) {
-    const tag = /<(mat|book|flower|tel|clock)\s(class='[a-z\s]*?'\s)?\/>/gm;
-    return dataImages.replace(tag, (str, p1, p2) => {
+    const tag = /<(mat|book|flower|tel|clock)\s(class='[a-z\s]*')?\s*(id='q\d*')\s*\/>/gm;
+    return dataImages.replace(tag, (str, p1, p2, p3) => {
       const tagClass = p2 || '';
-      let res = `<${p1} ${tagClass}></${p1}>`;
+      let res = `<${p1} ${tagClass} ${p3}></${p1}>`;
       if (tagClass.indexOf('moved') > 0) {
         const shadowClass =
           tagClass.indexOf('small') > 0 ? 'shadowFrame small' : 'shadowFrame';
@@ -79,13 +78,54 @@ export default class Task {
 
   addListeners() {
     this.images.addEventListener('mouseover', (e) => {
-      if (e.target.classList.contains('small')) {
-        console.log(e.target.tagName, e.target.classList, e.target.parentNode);
+      const tags = ['BOOK', 'FLOWER', 'TEL', 'MAT', 'SHADOWFRAME'];
+      if (tags.indexOf(e.target.tagName) >= 0) {
         e.target.classList.add('active');
-        e.target.onmouseleave = () => {
+        Task.displayElementOnModal();
+        e.target.onmouseout = () => {
+          Task.deletElementFromModal();
           e.target.classList.remove('active');
         };
+      } else if (e.target.closest('shadow')) {
+        const shadowParent = e.target.closest('shadow').parentNode;
+        if (tags.indexOf(shadowParent.tagName) >= 0) {
+          shadowParent.classList.add('active');
+          Task.displayElementOnModal();
+          shadowParent.onmouseout = () => {
+            Task.deletElementFromModal();
+            shadowParent.classList.remove('active');
+          };
+        }
       }
     });
+  }
+
+  static displayElementOnModal() {
+    const activeElement = document.querySelector('.active');
+    const idActiveElement = activeElement.getAttribute('id');
+    console.log(idActiveElement);
+    const codeElement = document.querySelector(
+      `.viewer__window_code #${idActiveElement}`
+    );
+    codeElement.classList.add('active-code');
+
+    const activeModal = document.querySelector('.viewer__window-active-items');
+    // activeModal.classList.add('active-wrapper');
+    activeModal.append(activeElement.cloneNode(true));
+    // console.log(activeElement.);
+  }
+
+  static deletElementFromModal() {
+    const activeElement = document.querySelector('.active');
+    const idActiveElement = activeElement.getAttribute('id');
+    // console.log(idActiveElement);
+    const codeElement = document.querySelector(
+      `.viewer__window_code #${idActiveElement}`
+    );
+    codeElement.classList.remove('active-code');
+
+    const activeModal = document.querySelector('.viewer__window-active-items');
+    // activeModal.classList.remove('active-wrapper');
+    activeModal.innerHTML = '';
   }
 }

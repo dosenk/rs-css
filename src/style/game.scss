@@ -34,21 +34,28 @@
       }
       &__items {
         display: flex;
-        justify-content: center;
-        column-gap: 20px;
+        /* justify-content: stretch; */
+        align-items: flex-end;
+        column-gap: 10px;
         position: relative;
         top: 75px;
         height: 100px;
         z-index: 2;
-        padding: 0 calc(#{$image-size} / 4.8);
-        & > shadow {
+        padding: 0 calc(120px / 4.8);
+        book > shadow,
+        mat > shadow {
+          position: relative;
+          bottom: 60px;
+        }
+        shadow {
+          // position: relative;
           width: $image-size;
           height: 100px;
         }
         book {
           display: flex;
-          width: $image-size;
-          height: 100%;
+          width: calc(#{$image-size} - 14px);
+          height: 54px;
           background: url('./assets/new_img/book_broun.png') no-repeat;
           background-size: contain;
           background-position: bottom;
@@ -73,8 +80,9 @@
         mat {
           // display: flex;
           position: relative;
+          bottom: 0;
           width: $image-size;
-          height: 100%;
+          height: 52px;
           background: url('./assets/new_img/mat.png') no-repeat;
           background-size: contain;
           background-position: bottom;
@@ -88,22 +96,19 @@
           background-position: bottom;
         }
 
-        book shadow,
-        flower {
-          position: relative;
-          margin: 0 auto;
-          bottom: 15px;
-        }
-        book.small > shadow {
-          position: relative;
-          bottom: -3px;
-        }
+        // book shadow,
+        // flower {
+        //   position: relative;
+        //   margin: 0 auto;
+        //   bottom: 15px;
+        // }
 
         mat book {
           position: relative;
           margin: 0 auto;
-          bottom: 8px;
+          bottom: 14px;
         }
+
         mat > book.small {
           position: absolute;
           left: 50%;
@@ -113,17 +118,26 @@
           }
         }
 
+        book.small {
+          height: 38px;
+          & > book.small {
+            bottom: 8px;
+          }
+          & > shadow {
+            position: relative;
+            bottom: -3px;
+          }
+        }
+
         book > book.small {
           bottom: 25px;
         }
 
-        book.small > book.small {
-          bottom: 0;
-        }
         .small book {
           position: absolute;
           bottom: 0;
         }
+
         book book,
         book mat {
           position: relative;
@@ -148,11 +162,15 @@
         }
 
         .small {
-          width: calc(#{$image-size} / 2);
+          width: calc(#{$image-size} / 1.7);
           margin: 0 auto;
-          margin-bottom: 5px;
+          margin-bottom: 8px;
         }
-
+        .active {
+          // animation: MoveLeftRight 0.5s linear infinite;
+          // position: relative;
+          // background-color: #fff;
+        }
         @keyframes MoveUpDown {
           0%,
           100% {
@@ -162,18 +180,15 @@
             bottom: 60px;
           }
         }
-        .active {
-          // animation: MoveLeftRight 0.5s linear infinite;
-          // position: relative;
-          background-color: #fff;
-        }
+
         @keyframes MoveLeftRight {
           0%,
           100% {
-            left: -5px;
+            transform: scale(1);
           }
           50% {
-            left: 5px;
+            transform: scale(1.4);
+            // left: 3px;
           }
         }
       }
