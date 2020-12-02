@@ -1,23 +1,20 @@
-import newData from '../../assets/data/data';
+// import newData from '../../assets/data/data';
 
 const data = require('../../assets/data/data.json');
 
 export default class Task {
   constructor(level) {
-    // this.newData = newData;
     this.level = level;
   }
 
   getDataFromJson() {
-    // console.log(data);
     return data[this.level];
   }
 
   static prepareDataForViewer(dataViewer) {
     const regOpenTag = /<(\w*)\s(class='[\w,\s]*')?\s?(id=[',"]q\d*[',"])?|</gm;
     const regCloseTag = /(\/)?(mat|book|flower|map|lamp|tel|clock)[\w,',=,\s]*\s?(\/)?>/gm;
-    const regClassMoved = /\sclass='moved'|\smoved/gm;
-
+    const regClassMoved = /\sclass='moved'|\smoved|<\/?shadow>/gm;
     let stagedData = dataViewer.replace(regClassMoved, '');
 
     stagedData = stagedData.replace(regOpenTag, (str, p1, p2, p3) => {
@@ -34,17 +31,15 @@ export default class Task {
   }
 
   static prepareDataForImages(dataImages) {
-    const tag = /<(mat|book|flower|tel|clock)\s(class='[a-z\s]*')?\s*(id='q\d*')\s*\/>/gm;
-    return dataImages.replace(tag, (str, p1, p2, p3) => {
-      const tagClass = p2 || '';
-      // console.log(p1, tagClass, p3);
-      let res = `<${p1} ${tagClass} ${p3}></${p1}>`;
-      if (tagClass.indexOf('moved') >= 0) {
-        const shadowClass = tagClass.indexOf('small') >= 0 ? 'small' : '';
-        const shadow = `<div class="shadowFrame ${shadowClass}"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>`;
-        res = `<shadow class='${shadowClass}'>${res}${shadow}</shadow>`;
-      }
-      return res;
+    const regShadow = /<shadow>(.*)<\/shadow>/gm;
+    const regCloseTag = /(\w*)\s(class='[\w,\s]*')?\s?(id=[',"]q\d*[',"])?\/>/gm;
+    const res = dataImages.replace(regShadow, (str, p1) => {
+      const shadowClass = str.indexOf('small') >= 0 ? 'small' : '';
+      const shadow = `<div class="shadowFrame ${shadowClass}"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>`;
+      return `<shadow class='${shadowClass}'>${p1}${shadow}</shadow>`;
+    });
+    return res.replace(regCloseTag, (str, p1) => {
+      return `${str.slice(0, -2)}></${p1}>`;
     });
   }
 
@@ -61,9 +56,9 @@ export default class Task {
     this.viewer = document.querySelector('.viewer__window_code');
     this.images = document.querySelector('.shelf__items');
 
+    this.images.innerHTML = Task.prepareDataForImages(dataOfLevel.HTMLviewer);
     this.viewer.innerHTML = Task.prepareDataForViewer(dataOfLevel.HTMLviewer);
 
-    this.images.innerHTML = Task.prepareDataForImages(dataOfLevel.HTMLviewer);
     this.taskName.innerText = dataOfLevel.taskName;
     this.levelName.innerText = this.level;
     this.examples.innerHTML = dataOfLevel.examples;

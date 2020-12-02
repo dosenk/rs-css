@@ -1,0 +1,126 @@
+book {
+  @include dFlex();
+  flex-direction: column;
+  position: relative;
+  width: $image-size;
+  height: calc(#{$image-size} - 68px);
+  background: url('./assets/new_img/book_broun.png') no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+mat {
+  @include dFlex();
+  position: relative;
+  width: $image-size;
+  height: 52px;
+  background: url('./assets/new_img/mat.png') no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+flower {
+  @include dFlex();
+  position: relative;
+  width: calc(120px - 22px);
+  height: calc(120px - 20px);
+  background: url('./assets/new_img/flower_2.png') no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+tel {
+  display: flex;
+  width: $image-size;
+  height: 64px;
+  background: url('./assets/new_img/tel_yellow.png') no-repeat;
+  background-size: contain;
+  background-position: bottom;
+  margin: 0 auto;
+}
+clock {
+  display: flex;
+  width: $image-size;
+  height: 100%;
+  background: url('./assets/new_img/clock_red.png') no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+
+lamp {
+  display: flex;
+  width: $image-size;
+  height: 100%;
+  background: url('./assets/new_img/lamp_green.png') no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+
+shadow {
+  position: relative;
+  @include dFlex();
+  width: $image-size;
+}
+
+book.small,
+.shadowFrame.small,
+shadow.small {
+  width: calc(#{$image-size} - 50px);
+  height: calc(#{$image-size} - 85px);
+}
+.shadowFrame.small {
+  bottom: 5px;
+}
+flower.small {
+  margin: 0 auto;
+  width: calc(#{$image-size} - 60px);
+  height: calc(#{$image-size} - 60px);
+}
+
+book,
+mat {
+  book:nth-child(1) {
+    position: absolute;
+    bottom: 15px;
+  }
+  book:nth-child(2) {
+    position: absolute;
+    bottom: 30px;
+  }
+  flower:nth-child(1) {
+    position: absolute;
+    bottom: 25px;
+  }
+  flower:nth-child(2) {
+    position: absolute;
+    bottom: 40px;
+  }
+  flower:nth-child(3) {
+    position: absolute;
+    bottom: 60px;
+  }
+  flower.small {
+    bottom: 25px;
+  }
+}
+
+.moved {
+  position: absolute;
+  animation: MoveUpDown 1.5s linear infinite;
+}
+
+.green {
+  display: flex;
+  width: $image-size;
+  height: 100%;
+  background: url('./assets/new_img/tel_green.png') no-repeat;
+  background-size: contain;
+  background-position: center bottom;
+}
+
+@keyframes MoveUpDown {
+  0%,
+  100% {
+    bottom: 45px;
+  }
+  50% {
+    bottom: 60px;
+  }
+}

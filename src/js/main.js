@@ -2,7 +2,7 @@ const { default: Task } = require('./moduls/Task');
 const newData = require('../assets/data/data');
 
 window.onload = () => {
-  const currentLevel = 2;
+  const currentLevel = 1;
   const task = new Task(currentLevel, newData);
   task.render();
   task.addListeners();

@@ -6,7 +6,7 @@
     "instructionSurName": "Select direct children of an element <strong>&nbsp;A > B&nbsp;</strong>",
     "instruction": "You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element. Elements that are nested deeper than that are called descendant elements.",
     "examples": "<strong>&nbsp;A > B&nbsp;</strong> selects all<strong>&nbsp;B&nbsp;</strong> that are adirect children <strong>&nbsp;A&nbsp;</strong>",
-    "HTMLviewer": "<mat class='small moved' id='q5'> <flower class='small moved' id='q1'/> </mat>   <book id='q2'/>"
+    "HTMLviewer": "<book id='q5'> <shadow><book class='moved' id='q1'><flower class='small' id='q7'/></book></shadow></book> <book id='q2'/>"
   },
   "2": {
     "taskName": "Select the small flouwers",

@@ -1,7 +1,7 @@
 @import '~reset-css', '~normalize.css', '~animate.css';
 @import './style/abstracts/variables', './style/abstracts/mixins',
   './style/abstracts/functions';
-@import './style/components/shadow.scss';
+@import './style/components/shadow.scss', './style/components/item.scss';
 @import './style/header.scss', './style/page.scss', './style/game.scss',
   './style/editor.scss', './style/viewer.scss', './style/task.scss',
   './style/scrollbar.scss', './style/footer.scss', './style/active-modal.scss';
