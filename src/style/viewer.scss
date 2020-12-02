@@ -51,144 +51,121 @@
       width: 55%;
       // background-color: #f7b403;
     }
+
     &-active-items {
       display: flex;
       align-items: flex-start;
       column-gap: 10px;
       position: relative;
       width: 40%;
-      height: 100%;
-      // background-color: #f7b403;
-      book > shadow,
-      mat > shadow {
-        position: relative;
-        bottom: 60px;
-      }
-      shadow {
-        // position: relative;
-        width: $image-size;
-        height: 100px;
-      }
-      book {
-        display: flex;
-        width: calc(#{$image-size} - 14px);
-        height: 54px;
-        background: url('./assets/new_img/book_broun.png') no-repeat;
-        background-size: contain;
-        background-position: bottom;
-      }
-      flower {
-        display: flex;
-        width: $image-size;
-        height: 100%;
-        background: url('./assets/new_img/flower_2.png') no-repeat;
-        background-size: contain;
-        background-position: center;
-      }
-      tel {
-        display: flex;
-        width: $image-size;
-        height: 100%;
-        background: url('./assets/new_img/tel_yellow.png') no-repeat;
-        background-size: contain;
-        background-position: bottom;
-        margin: 0 auto;
-      }
-      mat {
-        display: flex;
-        position: relative;
-        bottom: 0;
-        width: $image-size;
-        height: 52px;
-        background: url('./assets/new_img/mat.png') no-repeat;
-        background-size: contain;
-        background-position: bottom;
-      }
-      clock {
-        display: flex;
-        width: $image-size;
-        height: 100%;
-        background: url('./assets/new_img/clock_red.png') no-repeat;
-        background-size: contain;
-        background-position: bottom;
-      }
-      mat book {
-        position: relative;
-        margin: 0 auto;
-        bottom: 14px;
-      }
+      // book > shadow,
+      // mat > shadow {
+      //   position: relative;
+      //   bottom: 60px;
+      // }
+      // shadow {
+      //   width: $image-size;
+      //   height: 100px;
+      // }
+      // book {
+      //   display: flex;
+      //   width: calc(#{$image-size} - 14px);
+      //   height: 54px;
+      //   background: url('./assets/new_img/book_broun.png') no-repeat;
+      //   background-size: contain;
+      //   background-position: bottom;
+      // }
+      // flower {
+      //   display: flex;
+      //   width: $image-size;
+      //   height: 100%;
+      //   background: url('./assets/new_img/flower_2.png') no-repeat;
+      //   background-size: contain;
+      //   background-position: center;
+      // }
+      // tel {
+      //   display: flex;
+      //   width: $image-size;
+      //   height: 100%;
+      //   background: url('./assets/new_img/tel_yellow.png') no-repeat;
+      //   background-size: contain;
+      //   background-position: bottom;
+      //   margin: 0 auto;
+      // }
+      // mat {
+      //   display: flex;
+      //   position: relative;
+      //   bottom: 0;
+      //   width: $image-size;
+      //   height: 52px;
+      //   background: url('./assets/new_img/mat.png') no-repeat;
+      //   background-size: contain;
+      //   background-position: bottom;
+      // }
+      // clock {
+      //   display: flex;
+      //   width: $image-size;
+      //   height: 100%;
+      //   background: url('./assets/new_img/clock_red.png') no-repeat;
+      //   background-size: contain;
+      //   background-position: bottom;
+      // }
 
-      mat > book.small {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        & > :last-child {
-          bottom: 18px;
-        }
-      }
+      // .small {
+      //   width: calc(#{$image-size} / 1.7);
+      //   margin: 0 auto;
+      //   margin-bottom: 8px;
+      // }
 
-      book.small {
-        height: 38px;
-        & > book.small {
-          bottom: 8px;
-        }
-        & > shadow {
-          position: relative;
-          bottom: -3px;
-        }
-      }
+      // mat book {
+      //   position: relative;
+      //   margin: 0 auto;
+      //   bottom: 14px;
+      // }
 
-      book > book.small {
-        bottom: 25px;
-      }
+      // mat > book.small {
+      //   position: absolute;
+      //   left: 50%;
+      //   transform: translateX(-50%);
+      //   & > :last-child {
+      //     bottom: 18px;
+      //   }
+      // }
 
-      .small book {
-        position: absolute;
-        bottom: 0;
-      }
+      // book.small {
+      //   height: 38px;
+      //   & > book.small {
+      //     bottom: 8px;
+      //   }
+      //   & > shadow {
+      //     position: relative;
+      //     bottom: -3px;
+      //   }
+      // }
 
-      book book,
-      book mat {
-        position: relative;
-        bottom: 10px;
-      }
-      .moved {
-        animation: MoveUpDown 1.5s linear infinite;
-        position: relative;
-      }
+      // book > book.small {
+      //   bottom: 25px;
+      // }
 
-      .green {
-        display: flex;
-        width: $image-size;
-        height: 100%;
-        background: url('./assets/new_img/tel_green.png') no-repeat;
-        background-size: contain;
-        background-position: center bottom;
-      }
+      // .small book {
+      //   position: absolute;
+      //   bottom: 0;
+      // }
 
-      .small .moved {
-        // background-color: #fff;
-      }
+      // book book,
+      // book mat {
+      //   position: relative;
+      //   bottom: 10px;
+      // }
 
-      .small {
-        width: calc(#{$image-size} / 1.7);
-        margin: 0 auto;
-        margin-bottom: 8px;
-      }
-      .active {
-        // animation: MoveLeftRight 0.5s linear infinite;
-        // position: relative;
-        // background-color: #fff;
-      }
-      @keyframes MoveUpDown {
-        0%,
-        100% {
-          bottom: 35px;
-        }
-        50% {
-          bottom: 60px;
-        }
-      }
+      // .green {
+      //   display: flex;
+      //   width: $image-size;
+      //   height: 100%;
+      //   background: url('./assets/new_img/tel_green.png') no-repeat;
+      //   background-size: contain;
+      //   background-position: center bottom;
+      // }
     }
     &_code {
       div {

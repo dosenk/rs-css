@@ -1,39 +1,35 @@
+import newData from '../../assets/data/data';
+
 const data = require('../../assets/data/data.json');
 
 export default class Task {
   constructor(level) {
+    // this.newData = newData;
     this.level = level;
   }
 
   getDataFromJson() {
+    // console.log(data);
     return data[this.level];
   }
 
   static prepareDataForViewer(dataViewer) {
-    const regSingleTag = /<(mat|book|flower|tel|clock)\s(class='[a-z\s]*')?\s*(id='q\d*')\s*\/>/gm;
+    const regOpenTag = /<(\w*)\s(class='[\w,\s]*')?\s?(id=[',"]q\d*[',"])?|</gm;
+    const regCloseTag = /(\/)?(mat|book|flower|map|lamp|tel|clock)[\w,',=,\s]*\s?(\/)?>/gm;
     const regClassMoved = /\sclass='moved'|\smoved/gm;
 
-    const regPairedTags = [
-      /<(book|mat)\s?(class='.{5,15}')?\s?(id='q\d?')\s?>/gm,
-      /<\/(book|mat)()>/gm,
-    ];
-
     let stagedData = dataViewer.replace(regClassMoved, '');
-    stagedData = stagedData.replace(regSingleTag, (str, p1, p2, p3) => {
-      return `<div ${p3}>&lt;${p1} ${p2 || ''} /&gt;</div>`;
-    });
 
-    function replaceData(strForReplace, reg, i) {
-      const res = strForReplace.replace(reg, (str, p1, p2, p3) => {
-        const startHtml = !i ? `<div ${p3}>&lt;` : '&lt;';
-        const endHtml = i ? '&gt;</div>' : '&gt;';
-        return `${startHtml}${p1} ${p2 || ''}${endHtml}`;
-      });
+    stagedData = stagedData.replace(regOpenTag, (str, p1, p2, p3) => {
+      let res = `<div ${p3 || ''}> &lt;${p1 || ''} ${p2 || ''}`;
+      if (p1 === undefined) res = '&lt;';
       return res;
-    }
-    for (let i = 0; i < regPairedTags.length; i += 1) {
-      stagedData = replaceData(stagedData, regPairedTags[i], i);
-    }
+    });
+    stagedData = stagedData.replace(regCloseTag, (str, p1, p2, p3) => {
+      let res = `${str.slice(0, -1)}&gt;</div>`;
+      if (p1 === undefined && p3 === undefined) res = `${str.slice(0, -1)}&gt;`;
+      return res;
+    });
     return stagedData;
   }
 
@@ -41,12 +37,12 @@ export default class Task {
     const tag = /<(mat|book|flower|tel|clock)\s(class='[a-z\s]*')?\s*(id='q\d*')\s*\/>/gm;
     return dataImages.replace(tag, (str, p1, p2, p3) => {
       const tagClass = p2 || '';
+      // console.log(p1, tagClass, p3);
       let res = `<${p1} ${tagClass} ${p3}></${p1}>`;
-      if (tagClass.indexOf('moved') > 0) {
-        const shadowClass =
-          tagClass.indexOf('small') > 0 ? 'shadowFrame small' : 'shadowFrame';
-        const shadow = `<div class="${shadowClass}"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>`;
-        res = `<shadow>${res}${shadow}</shadow>`;
+      if (tagClass.indexOf('moved') >= 0) {
+        const shadowClass = tagClass.indexOf('small') >= 0 ? 'small' : '';
+        const shadow = `<div class="shadowFrame ${shadowClass}"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>`;
+        res = `<shadow class='${shadowClass}'>${res}${shadow}</shadow>`;
       }
       return res;
     });
@@ -78,54 +74,39 @@ export default class Task {
 
   addListeners() {
     this.images.addEventListener('mouseover', (e) => {
-      const tags = ['BOOK', 'FLOWER', 'TEL', 'MAT', 'SHADOWFRAME'];
-      if (tags.indexOf(e.target.tagName) >= 0) {
-        e.target.classList.add('active');
-        Task.displayElementOnModal();
-        e.target.onmouseout = () => {
-          Task.deletElementFromModal();
-          e.target.classList.remove('active');
+      // const tags = ['BOOK', 'FLOWER', 'TEL', 'MAT'];
+      if (e.target.closest('[id^="q"]') !== null) {
+        const elem = e.target.closest('[id^="q"]');
+        if (e.target.closest('.shadowFrame') !== null) return;
+        const id = elem.getAttribute('id');
+        if (!id) return;
+        Task.displayElementOnModal(id, elem);
+        elem.onmouseout = (event) => {
+          if (event.relatedTarget.closest('.shadowFrame') !== null) return;
+          Task.deletElementFromModal(id, elem);
         };
-      } else if (e.target.closest('shadow')) {
-        const shadowParent = e.target.closest('shadow').parentNode;
-        if (tags.indexOf(shadowParent.tagName) >= 0) {
-          shadowParent.classList.add('active');
-          Task.displayElementOnModal();
-          shadowParent.onmouseout = () => {
-            Task.deletElementFromModal();
-            shadowParent.classList.remove('active');
-          };
-        }
       }
+    });
+    this.viewer.addEventListener('mouseover', (e) => {
+      const id = e.target.getAttribute('id');
+
+      console.log(id);
     });
   }
 
-  static displayElementOnModal() {
-    const activeElement = document.querySelector('.active');
-    const idActiveElement = activeElement.getAttribute('id');
-    console.log(idActiveElement);
-    const codeElement = document.querySelector(
-      `.viewer__window_code #${idActiveElement}`
-    );
+  static displayElementOnModal(id, elem) {
+    elem.classList.add('active');
+    const codeElement = document.querySelector(`.viewer__window_code #${id}`);
     codeElement.classList.add('active-code');
-
     const activeModal = document.querySelector('.viewer__window-active-items');
-    // activeModal.classList.add('active-wrapper');
-    activeModal.append(activeElement.cloneNode(true));
-    // console.log(activeElement.);
+    activeModal.append(elem.cloneNode(true));
   }
 
-  static deletElementFromModal() {
-    const activeElement = document.querySelector('.active');
-    const idActiveElement = activeElement.getAttribute('id');
-    // console.log(idActiveElement);
-    const codeElement = document.querySelector(
-      `.viewer__window_code #${idActiveElement}`
-    );
+  static deletElementFromModal(id, elem) {
+    elem.classList.remove('active');
+    const codeElement = document.querySelector(`.viewer__window_code #${id}`);
     codeElement.classList.remove('active-code');
-
     const activeModal = document.querySelector('.viewer__window-active-items');
-    // activeModal.classList.remove('active-wrapper');
     activeModal.innerHTML = '';
   }
 }

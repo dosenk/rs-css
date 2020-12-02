@@ -6,7 +6,7 @@
     "instructionSurName": "Select direct children of an element <strong>&nbsp;A > B&nbsp;</strong>",
     "instruction": "You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element. Elements that are nested deeper than that are called descendant elements.",
     "examples": "<strong>&nbsp;A > B&nbsp;</strong> selects all<strong>&nbsp;B&nbsp;</strong> that are adirect children <strong>&nbsp;A&nbsp;</strong>",
-    "HTMLviewer": "<flower class='small moved' id='q1'/><book id='q2'/>"
+    "HTMLviewer": "<mat class='small moved' id='q5'> <flower class='small moved' id='q1'/> </mat>   <book id='q2'/>"
   },
   "2": {
     "taskName": "Select the small flouwers",
@@ -15,6 +15,6 @@
     "instructionSurName": "Select elements by their class <strong>&nbsp;.classname&nbsp;</strong>",
     "instruction": "The class selector selects all elements with that class attribute. Elements can only have one ID, but many classes.",
     "examples": "<strong>&nbsp;.neato&nbsp;</strong> selects all elements with<strong>&nbsp;class='neato'&nbsp;</strong>",
-    "HTMLviewer": "<mat id='q1'/> <mat id='q2'><book id='q3'><flower class='moved' id='q4' /></book></mat> <book class='small' id='q5'><book class='small' id='q6' /></book> <tel class='small moved' id='q7' />"
+    "HTMLviewer": "<mat id='q1'><book id='q2'><book class='moved' id='q8' /><book class='small moved' id='q9'/></book></mat> <mat id='q3'><book class='small' id='q4'/></mat> <book id='q5'/> <book class='small' id='q10'> <book class='small moved' id='q6' /></book>"
   }
 }

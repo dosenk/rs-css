@@ -14,7 +14,7 @@
       font-size: $middle-max_fs;
     }
     .shelf {
-      // width: $shelf-size;
+      position: relative;
       &__wrapper {
         &_surface {
           width: 100%;
@@ -33,32 +33,31 @@
         }
       }
       &__items {
-        display: flex;
-        /* justify-content: stretch; */
-        align-items: flex-end;
-        column-gap: 10px;
         position: relative;
-        top: 75px;
-        height: 100px;
-        z-index: 2;
-        padding: 0 calc(120px / 4.8);
-        book > shadow,
-        mat > shadow {
-          position: relative;
-          bottom: 60px;
-        }
-        shadow {
-          // position: relative;
-          width: $image-size;
-          height: 100px;
-        }
+        @include dFlex();
+        column-gap: 10px;
+        top: 85px;
+        z-index: 1;
+        padding: 0 calc(#{$image-size} / 4);
+
         book {
-          display: flex;
-          width: calc(#{$image-size} - 14px);
-          height: 54px;
+          @include dFlex();
+          flex-direction: column;
+          position: relative;
+          width: $image-size;
+          height: calc(#{$image-size} - 68px);
           background: url('./assets/new_img/book_broun.png') no-repeat;
           background-size: contain;
-          background-position: bottom;
+          background-position: center;
+        }
+        mat {
+          @include dFlex();
+          position: relative;
+          width: $image-size;
+          height: 52px;
+          background: url('./assets/new_img/mat.png') no-repeat;
+          background-size: contain;
+          background-position: center;
         }
         flower {
           display: flex;
@@ -71,21 +70,11 @@
         tel {
           display: flex;
           width: $image-size;
-          height: 100%;
+          height: 64px;
           background: url('./assets/new_img/tel_yellow.png') no-repeat;
           background-size: contain;
           background-position: bottom;
           margin: 0 auto;
-        }
-        mat {
-          // display: flex;
-          position: relative;
-          bottom: 0;
-          width: $image-size;
-          height: 52px;
-          background: url('./assets/new_img/mat.png') no-repeat;
-          background-size: contain;
-          background-position: bottom;
         }
         clock {
           display: flex;
@@ -96,6 +85,46 @@
           background-position: bottom;
         }
 
+        lamp {
+          display: flex;
+          width: $image-size;
+          height: 100%;
+          background: url('./assets/new_img/lamp_green.png') no-repeat;
+          background-size: contain;
+          background-position: bottom;
+        }
+
+        shadow {
+          position: relative;
+          @include dFlex();
+          width: $image-size;
+        }
+
+        book.small,
+        .shadowFrame.small,
+        shadow.small {
+          width: calc(#{$image-size - 50px});
+          height: calc(#{$image-size} - 85px);
+        }
+        .shadowFrame.small {
+          bottom: 5px;
+        }
+
+        book,
+        mat {
+          &:only-child {
+            bottom: 15px;
+          }
+        }
+        // book > shadow,
+        // mat > shadow {
+        //   position: relative;
+        //   bottom: 60px;
+        // }
+        // shadow {
+        //   width: $image-size;
+        //   height: 100px;
+        // }
         // book shadow,
         // flower {
         //   position: relative;
@@ -103,49 +132,49 @@
         //   bottom: 15px;
         // }
 
-        mat book {
-          position: relative;
-          margin: 0 auto;
-          bottom: 14px;
-        }
+        // mat book {
+        //   position: relative;
+        //   margin: 0 auto;
+        //   bottom: 14px;
+        // }
 
-        mat > book.small {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          & > :last-child {
-            bottom: 18px;
-          }
-        }
+        // mat > book.small {
+        //   position: absolute;
+        //   left: 50%;
+        //   transform: translateX(-50%);
+        //   & > :last-child {
+        //     bottom: 18px;
+        //   }
+        // }
 
-        book.small {
-          height: 38px;
-          & > book.small {
-            bottom: 8px;
-          }
-          & > shadow {
-            position: relative;
-            bottom: -3px;
-          }
-        }
+        // book.small {
+        //   height: 38px;
+        //   & > book.small {
+        //     bottom: 8px;
+        //   }
+        //   & > shadow {
+        //     position: relative;
+        //     bottom: -3px;
+        //   }
+        // }
 
-        book > book.small {
-          bottom: 25px;
-        }
+        // book > book.small {
+        //   bottom: 25px;
+        // }
 
-        .small book {
-          position: absolute;
-          bottom: 0;
-        }
+        // .small book {
+        //   position: absolute;
+        //   bottom: 0;
+        // }
 
-        book book,
-        book mat {
-          position: relative;
-          bottom: 10px;
-        }
+        // book book,
+        // book mat {
+        //   position: relative;
+        //   bottom: 10px;
+        // }
         .moved {
+          position: absolute;
           animation: MoveUpDown 1.5s linear infinite;
-          position: relative;
         }
 
         .green {
@@ -157,40 +186,25 @@
           background-position: center bottom;
         }
 
-        .small .moved {
-          // background-color: #fff;
-        }
-
-        .small {
-          width: calc(#{$image-size} / 1.7);
-          margin: 0 auto;
-          margin-bottom: 8px;
-        }
-        .active {
-          // animation: MoveLeftRight 0.5s linear infinite;
-          // position: relative;
-          // background-color: #fff;
-        }
         @keyframes MoveUpDown {
           0%,
           100% {
-            bottom: 35px;
+            bottom: 45px;
           }
           50% {
             bottom: 60px;
           }
         }
 
-        @keyframes MoveLeftRight {
-          0%,
-          100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.4);
-            // left: 3px;
-          }
-        }
+        // @keyframes MoveLeftRight {
+        //   0%,
+        //   100% {
+        //     transform: scale(1);
+        //   }
+        //   50% {
+        //     transform: scale(1.4);
+        //   }
+        // }
       }
     }
   }
