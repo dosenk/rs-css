@@ -6,15 +6,15 @@
     "instructionSurName": "Select direct children of an element <strong>&nbsp;A > B&nbsp;</strong>",
     "instruction": "You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element. Elements that are nested deeper than that are called descendant elements.",
     "examples": "<strong>&nbsp;A > B&nbsp;</strong> selects all<strong>&nbsp;B&nbsp;</strong> that are adirect children <strong>&nbsp;A&nbsp;</strong>",
-    "HTMLviewer": "<book id='q5'> <shadow><book class='moved' id='q1'><flower class='small' id='q7'/></book></shadow></book> <book id='q2'/>"
+    "HTMLviewer": "<book item='q5' id='HarryPotter'><book class='moved' item='q1'><flower class='small' item='q7'/></book></book> <book item='q2'/>"
   },
   "2": {
     "taskName": "Select the small flouwers",
     "selector": "book",
     "instructionName": "Class Selector",
     "instructionSurName": "Select elements by their class <strong>&nbsp;.classname&nbsp;</strong>",
-    "instruction": "The class selector selects all elements with that class attribute. Elements can only have one ID, but many classes.",
+    "instruction": "The class selector selects all elements with that class attribute. Elements can only have one item, but many classes.",
     "examples": "<strong>&nbsp;.neato&nbsp;</strong> selects all elements with<strong>&nbsp;class='neato'&nbsp;</strong>",
-    "HTMLviewer": "<mat id='q1'><book id='q2'><book class='moved' id='q8' /><book class='small moved' id='q9'/></book></mat> <mat id='q3'><book class='small' id='q4'/></mat> <book id='q5'/> <book class='small' id='q10'> <book class='small moved' id='q6' /></book>"
+    "HTMLviewer": "<mat item='q1'><book item='q2'><book item='q8' /><book class='small' item='q99'/><tel class='small moved' item='q9'/></book></mat> <tel class='small green' item='q93'/> <mat class='small' item='q5'><book item='q55'><tel item='q44'/></book> </mat> <book class='small' item='q10'><book class='small moved' item='q6' /></book>"
   }
 }

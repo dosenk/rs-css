@@ -1,4 +1,5 @@
-@import '~reset-css', '~normalize.css', '~animate.css';
+@import '~reset-css', '~normalize.css', '~animate.css',
+  '~highlight.js/styles/idea.css';
 @import './style/abstracts/variables', './style/abstracts/mixins',
   './style/abstracts/functions';
 @import './style/components/shadow.scss', './style/components/item.scss';

@@ -27,27 +27,30 @@ flower {
   background-position: center;
 }
 tel {
-  display: flex;
-  width: $image-size;
-  height: 64px;
+  @include dFlex();
+  position: relative;
+  width: calc(120px - 25px);
+  height: calc(120px - 55px);
   background: url('./assets/new_img/tel_yellow.png') no-repeat;
   background-size: contain;
   background-position: bottom;
   margin: 0 auto;
 }
 clock {
-  display: flex;
-  width: $image-size;
-  height: 100%;
+  @include dFlex();
+  position: relative;
+  width: calc(120px - 55px);
+  height: calc(120px - 34px);
   background: url('./assets/new_img/clock_red.png') no-repeat;
   background-size: contain;
   background-position: bottom;
 }
 
 lamp {
-  display: flex;
-  width: $image-size;
-  height: 100%;
+  @include dFlex();
+  position: relative;
+  width: calc(120px - 40px);
+  height: calc(120px - 20px);
   background: url('./assets/new_img/lamp_green.png') no-repeat;
   background-size: contain;
   background-position: bottom;
@@ -73,6 +76,22 @@ flower.small {
   width: calc(#{$image-size} - 60px);
   height: calc(#{$image-size} - 60px);
 }
+lamp.small {
+  margin: 0 auto;
+  width: calc(#{$image-size} - 60px);
+  height: calc(#{$image-size} - 45px);
+}
+clock.small {
+  position: relative;
+  margin: 0 auto;
+  width: calc(120px - 75px);
+  height: calc(120px - 60px);
+}
+tel.small {
+  margin: 0 auto;
+  width: calc(120px - 55px);
+  height: calc(120px - 75px);
+}
 
 book,
 mat {
@@ -83,6 +102,10 @@ mat {
   book:nth-child(2) {
     position: absolute;
     bottom: 30px;
+  }
+  book:nth-child(3) {
+    position: absolute;
+    bottom: 50px;
   }
   flower:nth-child(1) {
     position: absolute;
@@ -96,31 +119,50 @@ mat {
     position: absolute;
     bottom: 60px;
   }
+  tel:nth-child(1) {
+    position: absolute;
+    bottom: 30px;
+  }
+  tel:nth-child(2) {
+    position: absolute;
+    bottom: 80px;
+  }
+  tel:nth-child(3) {
+    position: absolute;
+    bottom: 60px;
+  }
   flower.small {
     bottom: 25px;
   }
+}
+
+.green {
+  display: flex;
+  background: url('./assets/new_img/tel_green.png') no-repeat;
+  background-size: contain;
+  background-position: center bottom;
+}
+
+#HarryPotter {
+  display: flex;
+  position: relative;
+  width: $image-size;
+  height: calc(#{$image-size} - 68px);
+  background: url('./assets/new_img/book_red.png') no-repeat;
+  background-size: contain;
+  background-position: center bottom;
 }
 
 .moved {
   position: absolute;
   animation: MoveUpDown 1.5s linear infinite;
 }
-
-.green {
-  display: flex;
-  width: $image-size;
-  height: 100%;
-  background: url('./assets/new_img/tel_green.png') no-repeat;
-  background-size: contain;
-  background-position: center bottom;
-}
-
 @keyframes MoveUpDown {
   0%,
   100% {
-    bottom: 45px;
+    bottom: 50px;
   }
   50% {
-    bottom: 60px;
+    bottom: 75px;
   }
 }

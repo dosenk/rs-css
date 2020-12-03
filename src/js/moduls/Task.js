@@ -1,5 +1,3 @@
-// import newData from '../../assets/data/data';
-
 const data = require('../../assets/data/data.json');
 
 export default class Task {
@@ -7,38 +5,38 @@ export default class Task {
     this.level = level;
   }
 
-  getDataFromJson() {
-    return data[this.level];
+  getDataFromJson(level) {
+    const currentLevel = level || this.level;
+    return data[currentLevel];
   }
 
   static prepareDataForViewer(dataViewer) {
-    const regOpenTag = /<(\w*)\s(class='[\w,\s]*')?\s?(id=[',"]q\d*[',"])?|</gm;
+    const regOpenTag = /<(\w*)\s(class='[\w,\s]*')?\s?(item=[',"]q\d*[',"])?|</gm;
     const regCloseTag = /(\/)?(mat|book|flower|map|lamp|tel|clock)[\w,',=,\s]*\s?(\/)?>/gm;
     const regClassMoved = /\sclass='moved'|\smoved|<\/?shadow>/gm;
     let stagedData = dataViewer.replace(regClassMoved, '');
 
     stagedData = stagedData.replace(regOpenTag, (str, p1, p2, p3) => {
-      let res = `<div ${p3 || ''}> &lt;${p1 || ''} ${p2 || ''}`;
-      if (p1 === undefined) res = '&lt;';
+      // <pre><code class="language-html">&lt;/div&gt;</code></pre>
+      let res = `<div ${p3 || ''}> <pre><code class="language-html"> &lt;${
+        p1 || ''
+      } ${p2 || ''}`;
+      if (p1 === undefined) res = '<pre><code class="language-html"> &lt;';
       return res;
     });
     stagedData = stagedData.replace(regCloseTag, (str, p1, p2, p3) => {
-      let res = `${str.slice(0, -1)}&gt;</div>`;
-      if (p1 === undefined && p3 === undefined) res = `${str.slice(0, -1)}&gt;`;
+      let res = `${str.slice(0, -1)}&gt; </code></pre></div>`;
+      if (p1 === undefined && p3 === undefined)
+        res = `${str.slice(0, -1)}&gt; </code></pre>`;
       return res;
     });
     return stagedData;
   }
 
   static prepareDataForImages(dataImages) {
-    const regShadow = /<shadow>(.*)<\/shadow>/gm;
-    const regCloseTag = /(\w*)\s(class='[\w,\s]*')?\s?(id=[',"]q\d*[',"])?\/>/gm;
-    const res = dataImages.replace(regShadow, (str, p1) => {
-      const shadowClass = str.indexOf('small') >= 0 ? 'small' : '';
-      const shadow = `<div class="shadowFrame ${shadowClass}"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>`;
-      return `<shadow class='${shadowClass}'>${p1}${shadow}</shadow>`;
-    });
-    return res.replace(regCloseTag, (str, p1) => {
+    const regCloseTag = /(\w*)\s(class='[\w,\s]*')?\s?(item=[',"]q\d*[',"])?\s?\/>/gm;
+    //   const shadow = `<div class="shadowFrame small"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>`;
+    return dataImages.replace(regCloseTag, (str, p1) => {
       return `${str.slice(0, -2)}></${p1}>`;
     });
   }
@@ -61,6 +59,7 @@ export default class Task {
 
     this.taskName.innerText = dataOfLevel.taskName;
     this.levelName.innerText = this.level;
+    Task.setActiveForLevel(this.level);
     this.examples.innerHTML = dataOfLevel.examples;
     this.instructionName.innerText = dataOfLevel.instructionName;
     this.instructionSurName.innerHTML = dataOfLevel.instructionSurName;
@@ -69,39 +68,83 @@ export default class Task {
 
   addListeners() {
     this.images.addEventListener('mouseover', (e) => {
-      // const tags = ['BOOK', 'FLOWER', 'TEL', 'MAT'];
-      if (e.target.closest('[id^="q"]') !== null) {
-        const elem = e.target.closest('[id^="q"]');
-        if (e.target.closest('.shadowFrame') !== null) return;
-        const id = elem.getAttribute('id');
-        if (!id) return;
-        Task.displayElementOnModal(id, elem);
-        elem.onmouseout = (event) => {
-          if (event.relatedTarget.closest('.shadowFrame') !== null) return;
-          Task.deletElementFromModal(id, elem);
+      if (e.target.closest('[item^="q"]') !== null) {
+        const elem = e.target.closest('[item^="q"]');
+        const item = elem.getAttribute('item');
+        // console.log(e.target, elem, item);
+        Task.displayActiveImages(item);
+        elem.onmouseout = () => {
+          Task.deletActiveImages(item);
         };
       }
     });
     this.viewer.addEventListener('mouseover', (e) => {
-      const id = e.target.getAttribute('id');
-
-      console.log(id);
+      const elem = e.target;
+      const item = elem.getAttribute('item');
+      Task.displayActiveImages(item);
+      elem.onmouseout = () => {
+        Task.deletActiveImages(item);
+      };
     });
+    document
+      .querySelector('.page')
+      .addEventListener('click', (e) => this.changeLevel(e));
   }
 
-  static displayElementOnModal(id, elem) {
-    elem.classList.add('active');
-    const codeElement = document.querySelector(`.viewer__window_code #${id}`);
-    codeElement.classList.add('active-code');
+  static displayActiveImages(item) {
+    const imgElem = document.querySelector(`.shelf__items [item="${item}"]`);
+    const codeElem = document.querySelector(
+      `.viewer__window_code [item="${item}"]`
+    );
+    imgElem.classList.add('active');
+    codeElem.classList.add('active-code');
     const activeModal = document.querySelector('.viewer__window-active-items');
-    activeModal.append(elem.cloneNode(true));
+    activeModal.append(imgElem.cloneNode(true));
   }
 
-  static deletElementFromModal(id, elem) {
-    elem.classList.remove('active');
-    const codeElement = document.querySelector(`.viewer__window_code #${id}`);
-    codeElement.classList.remove('active-code');
+  static deletActiveImages(item) {
+    const imgElem = document.querySelector(`.shelf__items [item="${item}"]`);
+    const codeElem = document.querySelector(
+      `.viewer__window_code [item="${item}"]`
+    );
+    imgElem.classList.remove('active');
+    codeElem.classList.remove('active-code');
     const activeModal = document.querySelector('.viewer__window-active-items');
     activeModal.innerHTML = '';
+  }
+
+  changeLevel(e) {
+    if (e.target.classList.contains('level-change')) {
+      const elem = e.target;
+      const level = elem.classList.contains('level-prev')
+        ? this.level - 1
+        : this.level + 1;
+      this.setLevel(level);
+    } else if (e.target.classList.contains('all-levels__circle')) {
+      const level = +e.target.innerText;
+      Task.setActiveForLevel(level);
+      this.setLevel(level);
+    }
+  }
+
+  setLevel(level) {
+    if (level > 0 && level <= 2) {
+      this.level = level;
+      this.render();
+      const shelf = document.querySelector('.shelf');
+      shelf.classList.add('animate__zoomInDown');
+      setTimeout(() => {
+        shelf.classList.remove('animate__zoomInDown');
+      }, 700);
+    }
+  }
+
+  static setActiveForLevel(level) {
+    const allLevels = document.querySelectorAll('.all-levels__circle');
+    allLevels.forEach((item) => {
+      item.classList.remove('active-level');
+    });
+    const activeLevel = document.querySelector(`#level-${level}`);
+    activeLevel.classList.add('active-level');
   }
 }

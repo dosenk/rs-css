@@ -70,5 +70,10 @@ body {
       background: url('./assets/images/level-circle-on.png') no-repeat;
       background-size: contain;
     }
+    .active-level {
+      color: black;
+      background: url('./assets/images/level-circle-off.png') no-repeat;
+      background-size: contain;
+    }
   }
 }

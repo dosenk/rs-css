@@ -2,7 +2,6 @@
   float: left;
   height: 100vh;
   width: 50%;
-  // @include dFlex();
   background-color: $game-bg-color;
   .room {
     $line-ident: 321px;
@@ -34,11 +33,29 @@
       }
       &__items {
         position: relative;
-        @include dFlex();
+        @include dFlex(center, flex-end);
         column-gap: 10px;
-        top: 85px;
+        top: 80px;
         z-index: 1;
         padding: 0 calc(#{$image-size} / 4);
+        & > clock,
+        & > tel,
+        & > flower,
+        & > lamp,
+        & > book,
+        & > mat {
+          position: relative;
+        }
+        & > lamp,
+        & > tel,
+        & > flower,
+        & > book.small {
+          bottom: 12px;
+        }
+        .active {
+          transition: all 0.2s linear;
+          transform: scale(1.1);
+        }
       }
     }
   }
