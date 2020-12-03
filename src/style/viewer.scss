@@ -48,7 +48,7 @@
     margin-bottom: 1px;
     @include setFont($FiraCode-Regular, 13px, #c6c6c6, 1.39em);
     &-wrapper {
-      @include dFlex(space-between, center);
+      @include dFlex(space-between, flex-start);
       width: 100%;
       .viewer__window-active-content {
         width: 150px;
@@ -71,6 +71,8 @@
         animation: MoveLeft 0.5s linear;
         color: #f7b403;
         position: relative;
+        font-weight: bold;
+        font-size: 14px;
       }
       @keyframes MoveLeft {
         0%,

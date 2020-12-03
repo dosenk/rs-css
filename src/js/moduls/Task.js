@@ -1,3 +1,5 @@
+import hljs from 'highlight.js';
+
 const data = require('../../assets/data/data.json');
 
 export default class Task {
@@ -42,7 +44,7 @@ export default class Task {
   }
 
   render() {
-    const dataOfLevel = this.getDataFromJson();
+    this.dataOfLevel = this.getDataFromJson();
     this.taskName = document.querySelector('.task-name');
     this.levelName = document.querySelector('.level-name__current');
     this.examples = document.querySelector('.task-wrapper__examples_text');
@@ -54,16 +56,20 @@ export default class Task {
     this.viewer = document.querySelector('.viewer__window_code');
     this.images = document.querySelector('.shelf__items');
 
-    this.images.innerHTML = Task.prepareDataForImages(dataOfLevel.HTMLviewer);
-    this.viewer.innerHTML = Task.prepareDataForViewer(dataOfLevel.HTMLviewer);
+    this.images.innerHTML = Task.prepareDataForImages(
+      this.dataOfLevel.HTMLviewer
+    );
+    this.viewer.innerHTML = Task.prepareDataForViewer(
+      this.dataOfLevel.HTMLviewer
+    );
 
-    this.taskName.innerText = dataOfLevel.taskName;
+    this.taskName.innerText = this.dataOfLevel.taskName;
     this.levelName.innerText = this.level;
     Task.setActiveForLevel(this.level);
-    this.examples.innerHTML = dataOfLevel.examples;
-    this.instructionName.innerText = dataOfLevel.instructionName;
-    this.instructionSurName.innerHTML = dataOfLevel.instructionSurName;
-    this.instruction.innerHTML = dataOfLevel.instruction;
+    this.examples.innerHTML = this.dataOfLevel.examples;
+    this.instructionName.innerText = this.dataOfLevel.instructionName;
+    this.instructionSurName.innerHTML = this.dataOfLevel.instructionSurName;
+    this.instruction.innerHTML = this.dataOfLevel.instruction;
   }
 
   addListeners() {
@@ -71,7 +77,6 @@ export default class Task {
       if (e.target.closest('[item^="q"]') !== null) {
         const elem = e.target.closest('[item^="q"]');
         const item = elem.getAttribute('item');
-        // console.log(e.target, elem, item);
         Task.displayActiveImages(item);
         elem.onmouseout = () => {
           Task.deletActiveImages(item);
@@ -79,16 +84,42 @@ export default class Task {
       }
     });
     this.viewer.addEventListener('mouseover', (e) => {
-      const elem = e.target;
-      const item = elem.getAttribute('item');
-      Task.displayActiveImages(item);
-      elem.onmouseout = () => {
-        Task.deletActiveImages(item);
-      };
+      if (e.target.closest('div')) {
+        const elem = e.target.closest('div');
+        const item = elem.getAttribute('item');
+        Task.displayActiveImages(item);
+        elem.onmouseout = () => {
+          Task.deletActiveImages(item);
+        };
+      }
     });
     document
       .querySelector('.page')
       .addEventListener('click', (e) => this.changeLevel(e));
+    document
+      .querySelector('.editor__window_btn')
+      .addEventListener('click', () => {
+        this.editorInput = document.querySelector('.editor__window_input');
+        const answer = document.querySelectorAll(
+          `.shelf__items ${this.editorInput.value}`
+        );
+        const trueAnswer = document.querySelectorAll(`.shelf__items .moved`);
+        const res = Task.compareResults(answer, trueAnswer);
+        if (res) {
+          // SET TO LOCALSTORAGE RESULT
+          // CHANGED IMAGES OF TRUE ANSWER
+          // CLEAR INPUT
+          trueAnswer.forEach((item) => {
+            item.classList.remove('moved');
+            item.classList.add('animate__animated');
+            item.classList.add('animate__backOutUp');
+          });
+          setTimeout(() => {
+            this.level += 1;
+            this.setLevel(this.level);
+          }, 500);
+        }
+      });
   }
 
   static displayActiveImages(item) {
@@ -131,9 +162,14 @@ export default class Task {
     if (level > 0 && level <= 2) {
       this.level = level;
       this.render();
+      hljs.initHighlighting.called = false;
+      hljs.initHighlighting();
       const shelf = document.querySelector('.shelf');
       shelf.classList.add('animate__zoomInDown');
+      const code = document.querySelector('.viewer__window_shelf');
+      code.classList.add('animate__fadeIn');
       setTimeout(() => {
+        code.classList.remove('animate__fadeIn');
         shelf.classList.remove('animate__zoomInDown');
       }, 700);
     }
@@ -147,4 +183,20 @@ export default class Task {
     const activeLevel = document.querySelector(`#level-${level}`);
     activeLevel.classList.add('active-level');
   }
+
+  static compareResults(answer, trueAnswer) {
+    if (answer.length !== trueAnswer.length) {
+      return false;
+    }
+    return Array.from(answer).every(
+      (node, index) => node === trueAnswer[index]
+    );
+  }
+  // // answer, trueAnswer - nodeList
+  // let answerArr = [];
+  // answer.forEach((item) => {
+  //   console.log(item);
+  //   // answer.push(item.)
+  // });
+  // }
 }

@@ -1,11 +1,8 @@
-import hljs from 'highlight.js';
-
 const { default: Task } = require('./moduls/Task');
 
 window.onload = () => {
-  const currentLevel = 2;
+  const currentLevel = 1;
   const task = new Task(currentLevel);
-  task.render();
+  task.setLevel(currentLevel);
   task.addListeners();
-  hljs.initHighlighting();
 };
