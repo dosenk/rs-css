@@ -1,4 +1,5 @@
 import hljs from 'highlight.js';
+import Editor from './Editor';
 
 const data = require('../../assets/data/data.json');
 
@@ -36,7 +37,7 @@ export default class Task {
   }
 
   static prepareDataForImages(dataImages) {
-    const regCloseTag = /(\w*)\s(class='[\w,\s]*')?\s?(item=[',"]q\d*[',"])?\s?\/>/gm;
+    const regCloseTag = /([\w]+)(\s*(id|class|item)='[\w\s\d]+'\s*)+\/>/gm;
     //   const shadow = `<div class="shadowFrame small"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>`;
     return dataImages.replace(regCloseTag, (str, p1) => {
       return `${str.slice(0, -2)}></${p1}>`;
@@ -70,6 +71,8 @@ export default class Task {
     this.instructionName.innerText = this.dataOfLevel.instructionName;
     this.instructionSurName.innerHTML = this.dataOfLevel.instructionSurName;
     this.instruction.innerHTML = this.dataOfLevel.instruction;
+    this.editorInput = document.querySelector('.editor__window_input');
+    this.editorInput.value = '';
   }
 
   addListeners() {
@@ -98,28 +101,37 @@ export default class Task {
       .addEventListener('click', (e) => this.changeLevel(e));
     document
       .querySelector('.editor__window_btn')
-      .addEventListener('click', () => {
-        this.editorInput = document.querySelector('.editor__window_input');
-        const answer = document.querySelectorAll(
-          `.shelf__items ${this.editorInput.value}`
-        );
-        const trueAnswer = document.querySelectorAll(`.shelf__items .moved`);
-        const res = Task.compareResults(answer, trueAnswer);
-        if (res) {
-          // SET TO LOCALSTORAGE RESULT
-          // CHANGED IMAGES OF TRUE ANSWER
-          // CLEAR INPUT
-          trueAnswer.forEach((item) => {
-            item.classList.remove('moved');
-            item.classList.add('animate__animated');
-            item.classList.add('animate__backOutUp');
-          });
-          setTimeout(() => {
-            this.level += 1;
-            this.setLevel(this.level);
-          }, 500);
-        }
-      });
+      .addEventListener('click', () => this.checkAnswer());
+    this.editorInput.addEventListener('keydown', (e) => {
+      if (e.code === 'Enter' || e.code === 'NumpadEnter') this.checkAnswer();
+    });
+  }
+
+  checkAnswer() {
+    try {
+      const trueAnswer = document.querySelectorAll(`.shelf__items .moved`);
+      const answer = document.querySelectorAll(
+        `.shelf__items ${this.editorInput.value}`
+      );
+      const res = Editor.compareResults(answer, trueAnswer);
+      if (res) {
+        // SET TO LOCALSTORAGE RESULT
+        // CHANGED IMAGES OF TRUE ANSWER
+        trueAnswer.forEach((item) => {
+          item.classList.remove('moved');
+          item.classList.add('animate__animated');
+          item.classList.add('animate__backOutUp');
+        });
+        setTimeout(() => {
+          this.level += 1;
+          this.setLevel(this.level);
+        }, 500);
+      } else {
+        Editor.setClass('animate__shakeX');
+      }
+    } catch (e) {
+      alert('You entered an incorrect selector, please try again!');
+    }
   }
 
   static displayActiveImages(item) {
@@ -159,7 +171,7 @@ export default class Task {
   }
 
   setLevel(level) {
-    if (level > 0 && level <= 2) {
+    if (level > 0 && level <= 20) {
       this.level = level;
       this.render();
       hljs.initHighlighting.called = false;
@@ -183,20 +195,4 @@ export default class Task {
     const activeLevel = document.querySelector(`#level-${level}`);
     activeLevel.classList.add('active-level');
   }
-
-  static compareResults(answer, trueAnswer) {
-    if (answer.length !== trueAnswer.length) {
-      return false;
-    }
-    return Array.from(answer).every(
-      (node, index) => node === trueAnswer[index]
-    );
-  }
-  // // answer, trueAnswer - nodeList
-  // let answerArr = [];
-  // answer.forEach((item) => {
-  //   console.log(item);
-  //   // answer.push(item.)
-  // });
-  // }
 }

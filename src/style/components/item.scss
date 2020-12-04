@@ -3,8 +3,8 @@ book {
   flex-direction: column;
   position: relative;
   width: $image-size;
-  height: calc(#{$image-size} - 68px);
-  background: url('./assets/new_img/book_broun.png') no-repeat;
+  height: calc(#{$image-size} - 55px);
+  background: url('./assets/new_img/book_red.png') no-repeat;
   background-size: contain;
   background-position: center;
 }
@@ -95,15 +95,35 @@ tel.small {
 
 book,
 mat {
+  flower.small,
+  clock.small,
+  tel.small {
+    bottom: 25px;
+  }
+  lamp.small {
+    bottom: 35px;
+  }
   book:nth-child(1) {
     position: absolute;
-    bottom: 15px;
+    bottom: 25px;
   }
   book:nth-child(2) {
     position: absolute;
     bottom: 30px;
   }
   book:nth-child(3) {
+    position: absolute;
+    bottom: 50px;
+  }
+  book.small:nth-child(1) {
+    position: absolute;
+    bottom: 25px;
+  }
+  book.small:nth-child(2) {
+    position: absolute;
+    bottom: 37px;
+  }
+  book.small:nth-child(3) {
     position: absolute;
     bottom: 50px;
   }
@@ -119,9 +139,21 @@ mat {
     position: absolute;
     bottom: 60px;
   }
+  flower.small:nth-child(1) {
+    position: absolute;
+    bottom: 25px;
+  }
+  flower.small:nth-child(2) {
+    position: absolute;
+    bottom: 40px;
+  }
+  flower.small:nth-child(3) {
+    position: absolute;
+    bottom: 60px;
+  }
   tel:nth-child(1) {
     position: absolute;
-    bottom: 30px;
+    bottom: 45px;
   }
   tel:nth-child(2) {
     position: absolute;
@@ -131,8 +163,29 @@ mat {
     position: absolute;
     bottom: 60px;
   }
-  flower.small {
-    bottom: 25px;
+  lamp:nth-child(1) {
+    position: absolute;
+    bottom: 20px;
+  }
+  lamp:nth-child(2) {
+    position: absolute;
+    bottom: 80px;
+  }
+  lamp:nth-child(3) {
+    position: absolute;
+    bottom: 60px;
+  }
+  clock:nth-child(1) {
+    position: absolute;
+    bottom: 30px;
+  }
+  clock:nth-child(2) {
+    position: absolute;
+    bottom: 80px;
+  }
+  clock:nth-child(3) {
+    position: absolute;
+    bottom: 60px;
   }
 }
 
@@ -146,9 +199,9 @@ mat {
 #HarryPotter {
   display: flex;
   position: relative;
-  width: $image-size;
-  height: calc(#{$image-size} - 68px);
-  background: url('./assets/new_img/book_red.png') no-repeat;
+  width: calc(#{$image-size} - 10px);
+  height: calc(#{$image-size} - 65px);
+  background: url('./assets/new_img/book_broun.png') no-repeat;
   background-size: contain;
   background-position: center bottom;
 }

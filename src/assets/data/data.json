@@ -1,20 +1,182 @@
 {
   "1": {
-    "taskName": "Select the book directly on a shelf",
-    "selector": "flower",
-    "instructionName": "Child Selector",
-    "instructionSurName": "Select direct children of an element <strong>&nbsp;A > B&nbsp;</strong>",
-    "instruction": "You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element. Elements that are nested deeper than that are called descendant elements.",
-    "examples": "<strong>&nbsp;A > B&nbsp;</strong> selects all<strong>&nbsp;B&nbsp;</strong> that are adirect children <strong>&nbsp;A&nbsp;</strong>",
-    "HTMLviewer": "<book item='q5'/><flower class='small moved' item='q1'>"
+    "taskName": "Select the books",
+    "selector": "book",
+    "instructionName": "Type Selector",
+    "instructionSurName": "Select elements by their type <strong>A</strong>",
+    "instruction": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <tag>div</tag>, <tag>p</tag> and <tag>ul</tag> are all different element types.",
+    "examples": "<tag>div</tag> selects all <tag>div</tag> elements. </br><tag>p</tag> selects all <tag>p</tag> elements.",
+    "HTMLviewer": "<book class='moved' item='q1'/><book class='moved' item='q2'/>"
   },
   "2": {
-    "taskName": "Select the small flouwers",
-    "selector": "book",
+    "taskName": "Select the flowers",
+    "selector": "flower",
+    "instructionName": "Type Selector",
+    "instructionSurName": "Select elements by their type <strong>A</strong>",
+    "instruction": "Selects all elements of type <strong>A</strong>. Type refers to the type of tag, so <tag>div</tag>, <tag>p</tag> and <tag>ul</tag> are all different element types.",
+    "examples": "<tag>div</tag> selects all <tag>div</tag> elements. </br><tag>p</tag> selects all <tag>p</tag> elements.",
+    "HTMLviewer": "<flower class='moved' item='q1'/> <book item='q2'/> <flower class='moved' item='q3'/> "
+  },
+  "3": {
+    "taskName": "Select the Harry Potter book",
+    "selector": "#HarryPotter",
+    "instructionName": "ID Selector",
+    "instructionSurName": "Select elements with an ID <strong>#id</strong>",
+    "instruction": "Selects the element with a specific <strong>id</strong>. You can also combine the ID selector with the type selector.",
+    "examples": "<strong>#cool</strong> selects any element with <strong>id='cool'</strong>",
+    "HTMLviewer": "<book class='moved' item='q1' id='HarryPotter' /> <book item='q2'/> <mat item='q3'/>"
+  },
+  "4": {
+    "taskName": "Select the flower on the book",
+    "selector": "book flower",
+    "instructionName": "Descendant Selector",
+    "instructionSurName": "Select an element inside another element <strong>A  B</strong>",
+    "instruction": "Selects all B inside of A. B is called a descendant because it is inside of another element.",
+    "examples": "p  strong selects all strong elements that are inside of any p </br> <strong>#fancy span</strong> selects any span elements that are inside of the element with <strong>id='fancy'</strong>",
+    "HTMLviewer": "<mat item='q1'/> <book item='q2'><flower class='moved' item='q3'/> </book> <flower item='q4'/>"
+  },
+  "5": {
+    "taskName": "Select the lamp on the Harry Potters book",
+    "selector": "#HarryPotter lamp",
+    "instructionName": "",
+    "instructionSurName": "Combine the Descendant & ID Selectors #id  A",
+    "instruction": "You can combine any selector with the descendent selector.",
+    "examples": "<strong>#cool span</strong> selects all <tag>span</tag> elements that are inside of elements with <strong>id='cool'</strong>",
+    "HTMLviewer": "<mat item='q1'> <flower item='q2'/> </mat> <book item='q3' id='HarryPotter' ><lamp class='moved' item='q4'/></book><book item='q5'><lamp item='q6'/></book>"
+  },
+  "6": {
+    "taskName": "Select the small flowers",
+    "selector": "",
     "instructionName": "Class Selector",
-    "instructionSurName": "Select elements by their class <strong>&nbsp;.classname&nbsp;</strong>",
-    "instruction": "The class selector selects all elements with that class attribute. Elements can only have one item, but many classes.",
-    "examples": "<strong>&nbsp;.neato&nbsp;</strong> selects all elements with<strong>&nbsp;class='neato'&nbsp;</strong>",
-    "HTMLviewer": "<mat item='q1'><book item='q2'><book item='q8' /><book class='small' item='q99'/><tel class='small moved' item='q9'/></book></mat> <tel class='small green' item='q93'/> <mat class='small' item='q5'><book item='q55'><tel item='q44'/></book> </mat> <book class='small' item='q10'><book class='small moved' item='q6' /></book>"
+    "instructionSurName": "Select elements by their class <strong>.classname</strong>",
+    "instruction": "The class selector selects all elements with that class attribute. Elements can only have one ID, but many classes.",
+    "examples": "<strong>.neato</strong> selects all elements with <strong>class='neato'</strong>",
+    "HTMLviewer": " <flower item='q1'/> <flower class='small moved' item='q2'/><book item='q3'><flower class='small moved' item='q4'/>  </book> <book item='q5'/>"
+  },
+  "7": {
+    "taskName": "Select the small books",
+    "selector": "book.small",
+    "instructionName": "",
+    "instructionSurName": "Combine the Class Selector <strong>A.className</strong>",
+    "instruction": "You can combine the class selector with other selectors, like the type selector.",
+    "examples": "<strong>span.important</strong> selects all <tag>span</tag> elements that have <strong>class='important'</strong></br> <strong>#small.foo</strong> selects all elements with <strong>id='small'</strong> that also have <strong>class='foo'</strong>",
+    "HTMLviewer": " <lamp item='q1'/> <lamp class='small' item='q2'/>  <mat item='q3'><book class='small moved' item='q4'/></mat> <book item='q5'> <book item='q6'/> </book> <book item='q7'> <book class='small moved' item='q8'/> </book> "
+  },
+  "8": {
+    "taskName": "Select the small tel on the mat",
+    "selector": "mat tel.small",
+    "instructionName": "<strong>Put your back into it!</strong>",
+    "instructionSurName": "You can do it... ",
+    "instruction": "Combine what you learned in the last few levels to solve this one!",
+    "examples": "",
+    "HTMLviewer": "<mat item='q1'><tel item='q2'/></mat><tel class='small' item='q3'/> <mat item='q4'><tel class='small  moved' item='q5'/></mat> <mat item='q6'><tel class='green small moved' item='q7'/></mat>"
+  },
+  "9": {
+    "taskName": "Select all the mats and books",
+    "selector": "mat, book",
+    "instructionName": "Comma Combinator",
+    "instructionSurName": "Combine, selectors, with... commas! <strong>A, B</strong>",
+    "instruction": "Thanks to Shatner technology, this selects all A and B elements. You can combine any selectors this way, and you can specify more than two.",
+    "examples": "<strong>p, .fun</strong> selects all <tag>p</tag> elements as well as all elements with <strong>class='fun'</strong> </br> <strong>a, p, div/<strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements",
+    "HTMLviewer": "<flower class='small' item='q1'/> <mat class='moved' item='q2'><clock class='small' item='q3'/></mat> <book class='moved' item='q4'><clock class='small' item='q5'/></book><mat class='moved' item='q6'><clock class='small' item='q7'/></mat> <flower class='small' item='q8'/>"
+  },
+  "10": {
+    "taskName": "Select all the things!",
+    "selector": "*",
+    "instructionName": "The Universal Selector",
+    "instructionSurName": "You can select everything! <strong>*</strong>",
+    "instruction": "You can select all elements with the universal selector!",
+    "examples": "<strong>p *</strong> selects any element inside all <tag>p</tag> elements.",
+    "HTMLviewer": "<lamp class='moved' item='q1'/> <book class='small moved' item='q2'/><mat class='moved' item='q4'/><tel class='small moved' item='q5'/>"
+  },
+  "11": {
+    "taskName": "Select everything on the book",
+    "selector": "book *",
+    "instructionName": "Combine the Universal Selector",
+    "instructionSurName": "Combine the Universal Selector <strong>A  *</strong>",
+    "instruction": "This selects all elements inside of <strong>A.</strong>",
+    "examples": "<strong>p *</strong> selects every element inside all <tag>p</tag> elements. </br> <strong>ul.fancy *</strong> selects every element inside all <tag>ul class='fancy'</tag> elements.",
+    "HTMLviewer": "<book id='HarryPotter' item='q1'><book class='small moved' item='q2'/></book><book item='q3'><tel class='moved' item='q4'/></book><clock item='q5'/><book item='q6'><lamp class='moved' item='q7'/></book>"
+  },
+  "12": {
+    "taskName": "Select every tel that's next to a mat",
+    "selector": "book + tel",
+    "instructionName": "Adjacent Sibling Selector",
+    "instructionSurName": "Select an element that directly follows another element <strong>A + B</strong>",
+    "instruction": "This selects all <strong>B</strong> elements that directly follow <strong>A</strong>. Elements that follow one another are called siblings. They're on the same level, or depth. In the HTML markup for this level, elements that have the same indentation are siblings.",
+    "examples": "<strong>p + .intro</strong> selects every element with <strong>class='intro'</strong> that directly follows a <tag>p</tag> </br> <strong>div + a</strong> selects every <tag>a</tag> element that directly follows a <tag>div</tag>",
+    "HTMLviewer": "<mat item='q1'><tel class='small green' item='q2'/></mat> <book item='q3'/> <tel class='small moved' item='q4'/> <book item='q5'/> <tel class='moved' item='q6'/> <tel class='small green' item='q7'/>"
+  },
+  "13": {
+    "taskName": "Select the lamps beside the mat",
+    "selector": "mat ~ lamp",
+    "instructionName": "General Sibling Selector",
+    "instructionSurName": "Select elements that follows another element <strong>A ~ B</strong>",
+    "instruction": "You can select all siblings of an element that follow it. This is like the Adjacent Selector (A + B) except it gets all of the following elements instead of one.",
+    "examples": "<strong>A ~ B</strong> selects all <strong>B</strong> that follow a <strong>A</strong>",
+    "HTMLviewer": "<lamp class='small' item='q1'/> <mat item='q2'><clock item='q3'/></mat> <lamp class='moved' item='q4'/> <lamp class='small moved' item='q5'/> <book item='q6'><lamp class='small' item='q7'/></book>"
+  },
+  "14": {
+    "taskName": "Select the flower directly on a book",
+    "selector": "book>flower",
+    "instructionName": "Child Selector",
+    "instructionSurName": "Select direct children of an element <strong>A > B</strong>",
+    "instruction": "You can select elements that are direct children of other elements. A child element is any element that is nested directly in another element. Elements that are nested deeper than that are called descendant elements.",
+    "examples": "<strong>A > B</strong> selects all B that are a direct children <strong>A</strong>",
+    "HTMLviewer": "<mat item='q1'><flower item='q2'/></mat> <book item='q3'><flower class='moved' item='q4'/></book> <mat item='q5'/> <lamp class='small' item='q6'/>"
+  },
+  "15": {
+    "taskName": "Select the top book",
+    "selector": "book:last-child",
+    "instructionName": "Last Child Pseudo-selector",
+    "instructionSurName": "Select a last child element inside of another element:last-child",
+    "instruction": "You can select the last child element. A child element is any element that is directly nested in another element. You can combine this pseudo-selector with other selectors.",
+    "examples": "<strong>:last-child</strong> selects all last child elements. </br> <strong>p:last-child</strong> selects all last child <tag>p</tag> elements. ",
+    "HTMLviewer": "<book item='q1'id='HarryPotter'/><mat item='q2'><lamp item='q3'/></mat><mat item='q4'><book class='small' item='q5'/><book class='small' item='q6'/><book class='small moved' item='q7'/></mat> <flower class='small' item='q8'/>"
+  },
+  "16": {
+    "taskName": "Select the book and the flower on the mats",
+    "selector": "mat flower:only-child, mat book:only-child",
+    "instructionName": "Only Child Pseudo-selector",
+    "instructionSurName": "Select an element that are the only element inside of another one. :only-child ",
+    "instruction": "You can select any element that is the only element inside of another one.",
+    "examples": "<strong>span:only-child</strong> selects the <tag>span</tag> elements that are the only child of some other element.</br> <strong>ul li:only-child</strong> selects the only <tag>li</tag> element that are in a <tag>ul</tag>.",
+    "HTMLviewer": "<mat item='q1'><book class='small moved' item='q2'/></mat>  <mat item='q3'><book class='small' item='q4'/><book class='small' item='q5'/></mat> <mat item='q6'><flower class='small moved' item='q7'/></mat> <book item='q8' id='HarryPotter'><clock class='small' item='q9'/></book>"
+  },
+  "17": {
+    "taskName": "Select the small clock and the flower",
+    "selector": "flower:first-child, mat clock:first-child",
+    "instructionName": "First Child Pseudo-selector",
+    "instructionSurName": "Select the first element inside of another element:first-child",
+    "instruction": "You can use this selector to select an element that is the first child element inside of another element.",
+    "examples": "<strong>:first-child</strong> selects all first-child elements.</br> <strong>span:first-child</strong> selects all first-child <tag>span</tag> elements.",
+    "HTMLviewer": "<flower class='small moved' item='q4'/> <book class='small' item='q4'/> <mat item='q1'><clock class='small moved' item='q2'/></mat><flower item='q3'/>"
+  },
+  "18": {
+    "taskName": "Select the 4th book",
+    "selector": "book:nth-child(4)",
+    "instructionName": "Nth Child Pseudo-selector",
+    "instructionSurName": "Select an element by its order in another element <strong>:nth-child(A)</strong>",
+    "instruction": "Selects the nth (Ex: 1st, 3rd, 12th etc.) child element in another element.",
+    "examples": "<strong>:nth-child(3)</strong> selects every element that is the 3rd child of another element. </br> <strong>div p:nth-child(2)<strong> selects the second <tag>p</tag> in every <tag>div</tag>",
+    "HTMLviewer": "<book item='q1'/><book item='q2' id='HarryPotter'/><book item='q3'/><book class='moved' item='q4'/>"
+  },
+  "19": {
+    "taskName": "Select the 1st flower",
+    "selector": "flower:nth-last-child(3)",
+    "instructionName": "Nth Last Child Selector",
+    "instructionSurName": "Select an element by its order in another element, counting from the back <strong>:nth-last-child(A)</strong>",
+    "instruction": "Selects the children from the bottom of the parent. This is like nth-child, but counting from the back!",
+    "examples": "<strong>:nth-last-child(2)<strong> selects all second-to-last child elements.",
+    "HTMLviewer": "<mat item='q1'/><flower class='moved' item='q2'/><mat item='q3'><book class='small' item='q4'/><book class='small' item='q5'/><book class='small' item='q6'/></mat> <flower item='q7'/>"
+  },
+  "20": {
+    "taskName": "Select first lamp",
+    "selector": "lamp:first-of-type",
+    "instructionName": "First of Type Selector",
+    "instructionSurName": "Select the first element of a specific type <strong>:first-of-type</strong>",
+    "instruction": "Selects the first element of that type within another element.",
+    "examples": "<strong>span:first-of-type</strong> selects the first <tag>span</tag> in any element.",
+    "HTMLviewer": "<book item='q1' id='HarryPotter'/><lamp class='moved' item='q2'/><book class='small' item='q3'/><book item='q4'/><lamp class='small' item='q5'/>"
   }
 }

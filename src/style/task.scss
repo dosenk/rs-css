@@ -11,6 +11,17 @@
     font-family: 'IndieFlower-Regular', cursive;
     strong {
       background-color: burlywood;
+      padding: 0 4px;
+    }
+    tag {
+      background-color: burlywood;
+      font-weight: 800;
+      &::before {
+        content: '<';
+      }
+      &::after {
+        content: '>';
+      }
     }
     &__info {
       width: 53%;
