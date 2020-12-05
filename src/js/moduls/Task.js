@@ -1,11 +1,13 @@
 import hljs from 'highlight.js';
 import Editor from './Editor';
+import Locastore from './Localstor';
 
 const data = require('../../assets/data/data.json');
 
 export default class Task {
   constructor(level) {
     this.level = level;
+    this.help = 0; // 0 - not help btn, 1 - with help btn
   }
 
   getDataFromJson(level) {
@@ -115,16 +117,18 @@ export default class Task {
       );
       const res = Editor.compareResults(answer, trueAnswer);
       if (res) {
-        // SET TO LOCALSTORAGE RESULT
         // CHANGED IMAGES OF TRUE ANSWER
         trueAnswer.forEach((item) => {
           item.classList.remove('moved');
           item.classList.add('animate__animated');
           item.classList.add('animate__backOutUp');
         });
+        Locastore.setLevelResult(this.level, 1, this.help);
         setTimeout(() => {
           this.level += 1;
           this.setLevel(this.level);
+          // SET TO LOCALSTORAGE RESULT
+          Locastore.setCurrentLevel(this.level);
         }, 500);
       } else {
         Editor.setClass('animate__shakeX');
@@ -172,6 +176,7 @@ export default class Task {
 
   setLevel(level) {
     if (level > 0 && level <= 20) {
+      Locastore.setCurrentLevel(level);
       this.level = level;
       this.render();
       hljs.initHighlighting.called = false;
@@ -189,8 +194,13 @@ export default class Task {
 
   static setActiveForLevel(level) {
     const allLevels = document.querySelectorAll('.all-levels__circle');
+    const decidedLevels = Locastore.getDicidedLevels();
     allLevels.forEach((item) => {
       item.classList.remove('active-level');
+    });
+    decidedLevels.forEach((item) => {
+      const decidedLevel = document.querySelector(`#level-${item.level}`);
+      decidedLevel.classList.add('level-on');
     });
     const activeLevel = document.querySelector(`#level-${level}`);
     activeLevel.classList.add('active-level');

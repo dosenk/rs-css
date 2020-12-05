@@ -65,10 +65,10 @@
   "8": {
     "taskName": "Select the small tel on the mat",
     "selector": "mat tel.small",
-    "instructionName": "<strong>Put your back into it!</strong>",
-    "instructionSurName": "You can do it... ",
+    "instructionName": "Put your back into it!",
+    "instructionSurName": "",
     "instruction": "Combine what you learned in the last few levels to solve this one!",
-    "examples": "",
+    "examples": "You can do it... :)",
     "HTMLviewer": "<mat item='q1'><tel item='q2'/></mat><tel class='small' item='q3'/> <mat item='q4'><tel class='small  moved' item='q5'/></mat> <mat item='q6'><tel class='green small moved' item='q7'/></mat>"
   },
   "9": {
@@ -77,7 +77,7 @@
     "instructionName": "Comma Combinator",
     "instructionSurName": "Combine, selectors, with... commas! <strong>A, B</strong>",
     "instruction": "Thanks to Shatner technology, this selects all A and B elements. You can combine any selectors this way, and you can specify more than two.",
-    "examples": "<strong>p, .fun</strong> selects all <tag>p</tag> elements as well as all elements with <strong>class='fun'</strong> </br> <strong>a, p, div/<strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements",
+    "examples": "<strong>p, .fun</strong> selects all <tag>p</tag> elements as well as all elements with <strong>class='fun'</strong> </br> <strong>a, p, div</strong> selects all <tag>a</tag>, <tag>p</tag> and <tag>div</tag> elements",
     "HTMLviewer": "<flower class='small' item='q1'/> <mat class='moved' item='q2'><clock class='small' item='q3'/></mat> <book class='moved' item='q4'><clock class='small' item='q5'/></book><mat class='moved' item='q6'><clock class='small' item='q7'/></mat> <flower class='small' item='q8'/>"
   },
   "10": {

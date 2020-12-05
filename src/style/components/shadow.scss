@@ -18,23 +18,9 @@
 @keyframes shrink {
   0%,
   100% {
-    // bottom: -63px;
     width: 60%;
-    // bottom: 0;
   }
   50% {
-    // bottom: -78px;
     width: 90%;
-    // bottom: calc(#{$image-size} / 12);
   }
 }
-
-// @keyframes MoveUpDown {
-//   0%,
-//   100% {
-
-//   }
-//   50% {
-
-//   }
-// }
