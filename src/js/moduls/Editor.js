@@ -4,19 +4,22 @@ export default class Editor {
   }
 
   static compareResults(answer, trueAnswer) {
-    if (answer.length !== trueAnswer.length) {
-      return false;
-    }
-    return Array.from(answer).every(
-      (node, index) => node === trueAnswer[index]
+    const wrongNodes = Array.from(answer).filter(
+      (node) => Array.from(trueAnswer).indexOf(node) === -1
     );
+    const isCorrectAnswer =
+      answer.length !== trueAnswer.length
+        ? false
+        : Array.from(answer).every((node, index) => node === trueAnswer[index]);
+    return { isCorrectAnswer, wrongNodes };
   }
 
-  static setClass(className) {
-    const editor = document.querySelector('.editor-wrapper');
-    editor.classList.add('animate__animated', className);
+  static setClass(className, node = null) {
+    const elem =
+      node === null ? document.querySelector('.editor-wrapper') : node;
+    elem.classList.add('animate__animated', className);
     setTimeout(() => {
-      editor.classList.remove('animate__animated', className);
+      elem.classList.remove('animate__animated', className);
     }, 600);
   }
 }

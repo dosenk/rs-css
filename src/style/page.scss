@@ -70,6 +70,9 @@ body {
       background: url('./assets/images/level-circle-on.png') no-repeat;
       background-size: contain;
     }
+    .level-help {
+      border: 5px solid burlywood;
+    }
     .active-level {
       color: black;
       background: url('./assets/images/level-circle-off.png') no-repeat;

@@ -112,9 +112,17 @@ export default class Task {
     document
       .querySelector('.editor__window_btn-help')
       .addEventListener('click', () => this.getAnswer());
+    document
+      .querySelector('.editor__window_btn-reset-levels')
+      .addEventListener('click', () => {
+        localStorage.clear();
+        this.setLevel(1);
+        Task.setActiveForLevel(1);
+      });
   }
 
-  async getAnswer() {
+  getAnswer() {
+    this.help = 1;
     const answer = this.dataOfLevel.selector;
     let i = 0;
     const print = (input) => {
@@ -125,6 +133,10 @@ export default class Task {
         setTimeout(() => print(inputEditor), 20);
       }
     };
+    const levelInfo = Locastore.getHelpInfo(this.level);
+    if (levelInfo === null) {
+      Locastore.setLevelResult(this.level, 0, 1);
+    }
     print(this.editorInput);
   }
 
@@ -135,21 +147,25 @@ export default class Task {
         `.shelf__items ${this.editorInput.value}`
       );
       const res = Editor.compareResults(answer, trueAnswer);
-      if (res) {
-        // CHANGED IMAGES OF TRUE ANSWER
+      if (res.isCorrectAnswer) {
         trueAnswer.forEach((item) => {
           item.classList.remove('moved');
           item.classList.add('animate__animated');
           item.classList.add('animate__backOutUp');
         });
-        Locastore.setLevelResult(this.level, 1, this.help);
+        const levelHelp = Locastore.getHelpInfo(this.level) || this.help;
+        Locastore.setLevelResult(this.level, 1, levelHelp);
         setTimeout(() => {
           this.level += 1;
           this.setLevel(this.level);
-          // SET TO LOCALSTORAGE RESULT
           Locastore.setCurrentLevel(this.level);
         }, 500);
       } else {
+        if (res.wrongNodes.length > 0) {
+          res.wrongNodes.forEach((node) => {
+            Editor.setClass('animate__shakeX', node);
+          });
+        }
         Editor.setClass('animate__shakeX');
       }
     } catch (e) {
@@ -162,6 +178,11 @@ export default class Task {
     const codeElem = document.querySelector(
       `.viewer__window_code [item="${item}"]`
     );
+
+    imgElem.innerHTML = Task.prepareDataForViewer(codeElem.innerText);
+    // hljs.initHighlighting.called = false;
+    // hljs.initHighlighting();
+    // console.log(codeElem.innerText, imgElem);
     imgElem.classList.add('active');
     codeElem.classList.add('active-code');
     const activeModal = document.querySelector('.viewer__window-active-items');
@@ -195,6 +216,7 @@ export default class Task {
 
   setLevel(level) {
     if (level > 0 && level <= 20) {
+      this.help = 0;
       Locastore.setCurrentLevel(level);
       this.level = level;
       this.render();
@@ -213,11 +235,12 @@ export default class Task {
     const allLevels = document.querySelectorAll('.all-levels__circle');
     const decidedLevels = Locastore.getDicidedLevels();
     allLevels.forEach((item) => {
-      item.classList.remove('active-level');
+      item.classList.remove('active-level', 'level-on');
     });
     decidedLevels.forEach((item) => {
       const decidedLevel = document.querySelector(`#level-${item.level}`);
       decidedLevel.classList.add('level-on');
+      if (item.levelInfo.help === 1) decidedLevel.classList.add('level-help');
     });
     const activeLevel = document.querySelector(`#level-${level}`);
     activeLevel.classList.add('active-level');

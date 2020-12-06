@@ -46,7 +46,7 @@
   },
   "6": {
     "taskName": "Select the small flowers",
-    "selector": "",
+    "selector": "flower.small",
     "instructionName": "Class Selector",
     "instructionSurName": "Select elements by their class <strong>.classname</strong>",
     "instruction": "The class selector selects all elements with that class attribute. Elements can only have one ID, but many classes.",

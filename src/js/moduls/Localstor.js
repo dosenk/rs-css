@@ -23,11 +23,17 @@ export default class LocalStor {
     // localStorage.clear();
   }
 
+  static getHelpInfo(level) {
+    const levelInfo = JSON.parse(localStorage.getItem(`level_${level}`));
+    return levelInfo;
+  }
+
   static getDicidedLevels() {
     const levels = [];
     for (let i = 1; i <= 20; i += 1) {
       const levelInfo = JSON.parse(localStorage.getItem(`level_${i}`));
-      if (levelInfo !== null) levels.push({ levelInfo, level: i });
+      if (levelInfo !== null && levelInfo.decided === 1)
+        levels.push({ levelInfo, level: i });
     }
     return levels;
   }
