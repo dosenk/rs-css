@@ -75,6 +75,8 @@ export default class Task {
     this.instruction.innerHTML = this.dataOfLevel.instruction;
     this.editorInput = document.querySelector('.editor__window_input');
     this.editorInput.value = '';
+    hljs.initHighlighting.called = false;
+    hljs.initHighlighting();
   }
 
   addListeners() {
@@ -107,6 +109,23 @@ export default class Task {
     this.editorInput.addEventListener('keydown', (e) => {
       if (e.code === 'Enter' || e.code === 'NumpadEnter') this.checkAnswer();
     });
+    document
+      .querySelector('.editor__window_btn-help')
+      .addEventListener('click', () => this.getAnswer());
+  }
+
+  async getAnswer() {
+    const answer = this.dataOfLevel.selector;
+    let i = 0;
+    const print = (input) => {
+      const inputEditor = input;
+      i += 1;
+      if (i <= answer.length) {
+        inputEditor.value = answer.substr(0, i);
+        setTimeout(() => print(inputEditor), 20);
+      }
+    };
+    print(this.editorInput);
   }
 
   checkAnswer() {
@@ -179,8 +198,6 @@ export default class Task {
       Locastore.setCurrentLevel(level);
       this.level = level;
       this.render();
-      hljs.initHighlighting.called = false;
-      hljs.initHighlighting();
       const shelf = document.querySelector('.shelf');
       shelf.classList.add('animate__zoomInDown');
       const code = document.querySelector('.viewer__window_shelf');
