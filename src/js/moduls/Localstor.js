@@ -1,15 +1,9 @@
 export default class LocalStor {
-  static getData() {}
-
-  static removeData() {}
-
   static setCurrentLevel(level) {
-    // localStorage.clear();
     localStorage.setItem('currentLevel', `${level}`);
   }
 
   static getCurrentLevel() {
-    // localStorage.clear();
     return localStorage.getItem('currentLevel');
   }
 
@@ -19,8 +13,6 @@ export default class LocalStor {
       help,
     };
     localStorage.setItem(`level_${level}`, JSON.stringify(data));
-    console.log(localStorage);
-    // localStorage.clear();
   }
 
   static getHelpInfo(level) {
@@ -28,13 +20,15 @@ export default class LocalStor {
     return levelInfo;
   }
 
-  static getDicidedLevels() {
-    const levels = [];
+  static getDicidedLevels(notDecided = false) {
+    const levelsDecided = [];
+    const levelsNotDecided = [];
     for (let i = 1; i <= 20; i += 1) {
       const levelInfo = JSON.parse(localStorage.getItem(`level_${i}`));
       if (levelInfo !== null && levelInfo.decided === 1)
-        levels.push({ levelInfo, level: i });
+        levelsDecided.push({ levelInfo, level: i });
+      else levelsNotDecided.push(i);
     }
-    return levels;
+    return notDecided ? levelsNotDecided : levelsDecided;
   }
 }

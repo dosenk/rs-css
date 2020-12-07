@@ -66,7 +66,7 @@ book.small,
 .shadowFrame.small,
 shadow.small {
   width: calc(#{$image-size} - 50px);
-  height: calc(#{$image-size} - 85px);
+  height: calc(#{$image-size} - 70px);
 }
 .shadowFrame.small {
   bottom: 5px;
@@ -199,8 +199,8 @@ mat {
 #HarryPotter {
   display: flex;
   position: relative;
-  width: calc(#{$image-size} - 10px);
-  height: calc(#{$image-size} - 65px);
+  width: calc(#{$image-size} - 8px);
+  height: calc(#{$image-size} - 55px);
   background: url('./assets/new_img/book_broun.png') no-repeat;
   background-size: contain;
   background-position: center bottom;

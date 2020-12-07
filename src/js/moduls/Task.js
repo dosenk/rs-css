@@ -1,6 +1,7 @@
 import hljs from 'highlight.js';
 import Editor from './Editor';
 import Locastore from './Localstor';
+import Modal from './Modal';
 
 const data = require('../../assets/data/data.json');
 
@@ -22,7 +23,6 @@ export default class Task {
     let stagedData = dataViewer.replace(regClassMoved, '');
 
     stagedData = stagedData.replace(regOpenTag, (str, p1, p2, p3) => {
-      // <pre><code class="language-html">&lt;/div&gt;</code></pre>
       let res = `<div ${p3 || ''}> <pre><code class="language-html"> &lt;${
         p1 || ''
       } ${p2 || ''}`;
@@ -40,7 +40,6 @@ export default class Task {
 
   static prepareDataForImages(dataImages) {
     const regCloseTag = /([\w]+)(\s*(id|class|item)='[\w\s\d]+'\s*)+\/>/gm;
-    //   const shadow = `<div class="shadowFrame small"><svg version="2" class="shadow" viewBox="0 0 122.436 39.744"><ellipse fill="#a9a5a5" fill-opacity="0.25" cx="61.128" cy="19.872" rx="49.25" ry="8.916" /></svg></div>`;
     return dataImages.replace(regCloseTag, (str, p1) => {
       return `${str.slice(0, -2)}></${p1}>`;
     });
@@ -77,6 +76,24 @@ export default class Task {
     this.editorInput.value = '';
     hljs.initHighlighting.called = false;
     hljs.initHighlighting();
+  }
+
+  static getHtmlCodeElement(elem) {
+    const tag = elem.tagName.toLowerCase();
+    let classNames = '';
+    elem.classList.forEach((className) => {
+      if (className !== 'moved') {
+        classNames += `${className} `;
+      }
+    });
+    const id =
+      elem.getAttribute('id') !== null
+        ? ` id="${elem.getAttribute('id')}"`
+        : '';
+
+    const classes =
+      classNames.length > 0 ? ` class="${classNames.trim()}"` : '';
+    return `&lt;${tag + classes + id}&gt;&lt;/${tag}&gt;`;
   }
 
   addListeners() {
@@ -119,6 +136,39 @@ export default class Task {
         this.setLevel(1);
         Task.setActiveForLevel(1);
       });
+    document
+      .querySelector('.burger-menu')
+      .addEventListener('click', () => this.changeBurger(true));
+
+    document.querySelector('.switch-wrapper').addEventListener('click', (e) => {
+      const viewer = document.querySelector('.viewer');
+      const viewerTab = document.querySelector('.switch-wrapper_viewer');
+      const editorTab = document.querySelector('.switch-wrapper_editor');
+      if (e.target.closest('.switch-wrapper_viewer')) {
+        viewer.style.zIndex = '2';
+        e.target.classList.add('active-viewer');
+        editorTab.classList.remove('active-editor');
+      }
+      if (e.target.closest('.switch-wrapper_editor')) {
+        viewer.style.zIndex = '1';
+        e.target.classList.add('active-editor');
+        viewerTab.classList.remove('active-viewer');
+      }
+    });
+  }
+
+  changeBurger(flag) {
+    const page = document.querySelector('.page');
+    const burgerMenu = document.querySelector('.burger-menu');
+    if (!this.burgerOn && flag) {
+      this.burgerOn = true;
+      page.style.right = `${(window.innerWidth - 500) / 2}px`;
+      burgerMenu.style.transform = 'rotate(90deg)';
+    } else {
+      this.burgerOn = false;
+      page.style = '';
+      burgerMenu.style = '';
+    }
   }
 
   getAnswer() {
@@ -154,9 +204,27 @@ export default class Task {
           item.classList.add('animate__backOutUp');
         });
         const levelHelp = Locastore.getHelpInfo(this.level) || this.help;
-        Locastore.setLevelResult(this.level, 1, levelHelp);
+        Locastore.setLevelResult(this.level, 1, levelHelp.help);
+        this.changeBurger();
         setTimeout(() => {
           this.level += 1;
+          const notDecidedLevels = Locastore.getDicidedLevels(true);
+          let msg = 'VICTORY!';
+          if (this.level > 20) {
+            if (notDecidedLevels.length > 0) {
+              const endMsg =
+                notDecidedLevels.length > 1 ? 'these levels' : 'this level';
+              msg += ` But you haven't solved ${endMsg}: ${notDecidedLevels.join(
+                ' ,'
+              )}`;
+            }
+            Modal.drowModal(msg);
+            this.level = 20;
+          }
+          if (notDecidedLevels.length === 0) {
+            Modal.drowModal(msg);
+            this.level = 1;
+          }
           this.setLevel(this.level);
           Locastore.setCurrentLevel(this.level);
         }, 500);
@@ -169,7 +237,7 @@ export default class Task {
         Editor.setClass('animate__shakeX');
       }
     } catch (e) {
-      alert('You entered an incorrect selector, please try again!');
+      Modal.drowModal('You entered an incorrect selector, please try again!');
     }
   }
 
@@ -178,15 +246,13 @@ export default class Task {
     const codeElem = document.querySelector(
       `.viewer__window_code [item="${item}"]`
     );
-
-    imgElem.innerHTML = Task.prepareDataForViewer(codeElem.innerText);
-    // hljs.initHighlighting.called = false;
-    // hljs.initHighlighting();
-    // console.log(codeElem.innerText, imgElem);
+    const htmlCode = Task.getHtmlCodeElement(imgElem);
+    const htmlCodeNode = document.createElement('div');
+    htmlCodeNode.setAttribute('class', 'active-code-item');
+    htmlCodeNode.innerHTML = htmlCode;
+    imgElem.appendChild(htmlCodeNode);
     imgElem.classList.add('active');
     codeElem.classList.add('active-code');
-    const activeModal = document.querySelector('.viewer__window-active-items');
-    activeModal.append(imgElem.cloneNode(true));
   }
 
   static deletActiveImages(item) {
@@ -194,10 +260,13 @@ export default class Task {
     const codeElem = document.querySelector(
       `.viewer__window_code [item="${item}"]`
     );
+
     imgElem.classList.remove('active');
+    const htmlCodeNode = document.querySelector(
+      '.shelf__items .active-code-item'
+    );
+    if (htmlCodeNode !== null) htmlCodeNode.remove();
     codeElem.classList.remove('active-code');
-    const activeModal = document.querySelector('.viewer__window-active-items');
-    activeModal.innerHTML = '';
   }
 
   changeLevel(e) {
@@ -215,6 +284,7 @@ export default class Task {
   }
 
   setLevel(level) {
+    this.changeBurger();
     if (level > 0 && level <= 20) {
       this.help = 0;
       Locastore.setCurrentLevel(level);
@@ -235,7 +305,7 @@ export default class Task {
     const allLevels = document.querySelectorAll('.all-levels__circle');
     const decidedLevels = Locastore.getDicidedLevels();
     allLevels.forEach((item) => {
-      item.classList.remove('active-level', 'level-on');
+      item.classList.remove('active-level', 'level-on', 'level-help');
     });
     decidedLevels.forEach((item) => {
       const decidedLevel = document.querySelector(`#level-${item.level}`);

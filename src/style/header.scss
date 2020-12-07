@@ -1,9 +1,19 @@
 header {
+  z-index: 2;
   position: absolute;
   right: 0;
   width: 50%;
+  @media screen and (max-width: 1000px) {
+    width: 500px;
+    left: 50%;
+    transform: translate(-50%);
+    @include dFlex(space-between);
+  }
   .logo {
     @include dFlex(flex-start);
+    @media screen and (max-width: 1000px) {
+      width: 250px;
+    }
     & > img {
       margin-left: 5px;
       width: 35px;
@@ -16,6 +26,26 @@ header {
     & > h1 {
       margin: 0 0 0 10px;
       font-size: $big-fs;
+    }
+  }
+  .burger-menu {
+    display: none;
+    width: 33px;
+    height: 25px;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 10px;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    @media screen and (max-width: 1000px) {
+      display: flex;
+    }
+    span {
+      width: 100%;
+      height: 5px;
+      border-radius: 20px;
+      background-color: black;
     }
   }
 }

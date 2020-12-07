@@ -1,11 +1,51 @@
 .viewer {
+  z-index: 1;
   width: 50%;
-  height: 50vh;
   position: absolute;
   left: 0;
   top: 360px;
   font-family: 'FiraCode-Medium', monospace;
   @include dFlex();
+  flex-direction: column;
+  @media screen and (max-width: 1024px) {
+    top: 290px;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 500px;
+    top: 350px;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  .switch {
+    background-color: #c6c6c6;
+    width: 90%;
+    height: 23px;
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    border: solid 1px rgba(0, 0, 0, 0.35);
+    @media screen and (max-width: 1000px) {
+      display: flex;
+      width: 480px;
+    }
+    &-wrapper {
+      height: 100%;
+      @include dFlex(flex-start, center);
+      &_editor,
+      &_viewer {
+        cursor: pointer;
+        @include dFlex();
+        height: calc(100%);
+        border-right: solid 1px rgba(0, 0, 0, 0.35);
+      }
+      .active-viewer {
+        background-color: #f7b403;
+      }
+      .active-editor {
+        background-color: $shelf-edge-color;
+      }
+    }
+  }
   &-wrapper {
     width: 90%;
     min-width: 420px;
@@ -13,6 +53,9 @@
     @include dFlex(space-around);
     flex-wrap: wrap;
     border: solid 1px rgba(0, 0, 0, 0.35);
+    @media screen and (max-width: 1000px) {
+      width: 480px;
+    }
   }
   &__header {
     flex: 1 1 100%;
@@ -39,6 +82,7 @@
     }
   }
   &__window {
+    cursor: default;
     @include dFlex(flex-start, flex-start);
     flex: 1 1 calc(92% - 7px);
     height: calc(100% - 50px);

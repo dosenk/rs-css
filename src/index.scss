@@ -3,12 +3,6 @@
 @import './style/abstracts/variables', './style/abstracts/mixins',
   './style/abstracts/functions';
 @import './style/components/shadow.scss', './style/components/item.scss',
-  './style/components/highlight.scss';
+  './style/components/highlight.scss', './style/components/modal.scss';
 @import './style/header.scss', './style/page.scss', './style/game.scss',
-  './style/editor.scss', './style/viewer.scss', './style/task.scss',
-  './style/scrollbar.scss', './style/footer.scss', './style/active-modal.scss';
-
-//  '~highlight.js/styles/agate.css';
-// arta
-// atom-one-dark
-// vs2015
+  './style/editor.scss', './style/viewer.scss', './style/footer.scss';

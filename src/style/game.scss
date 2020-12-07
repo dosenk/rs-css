@@ -2,18 +2,31 @@
   float: left;
   height: 100vh;
   width: 50%;
+  min-width: 500px;
   background-color: $game-bg-color;
+  @media screen and (max-width: 1000px) {
+    position: absolute;
+    float: none;
+    left: 50%;
+    transform: translate(-50%);
+  }
   .room {
     $line-ident: 321px;
     @include dFlex(space-around);
+    @media screen and (max-width: 1024px) {
+      padding-top: 50px;
+      @include dFlex(flex-start);
+    }
     flex-direction: column;
     width: 100%;
     height: 40%;
     .task-name {
       font-size: $middle-max_fs;
+      text-align: center;
     }
     .shelf {
       position: relative;
+
       &__wrapper {
         &_surface {
           width: 100%;
@@ -38,6 +51,9 @@
         top: 80px;
         z-index: 1;
         padding: 0 calc(#{$image-size} / 4);
+        @media screen and (max-width: 1024px) {
+          column-gap: 4px;
+        }
         & > clock,
         & > tel,
         & > flower,
@@ -52,9 +68,22 @@
         & > book.small {
           bottom: 12px;
         }
+
         .active {
+          z-index: 3;
           transition: all 0.2s linear;
           transform: scale(1.1);
+        }
+
+        .active-code-item {
+          background: cadetblue;
+          position: absolute;
+          top: -25px;
+          left: 10px;
+          width: max-content;
+          height: 25px;
+          @include dFlex();
+          z-index: 3;
         }
       }
     }

@@ -60,7 +60,7 @@
     "instructionSurName": "Combine the Class Selector <strong>A.className</strong>",
     "instruction": "You can combine the class selector with other selectors, like the type selector.",
     "examples": "<strong>span.important</strong> selects all <tag>span</tag> elements that have <strong>class='important'</strong></br> <strong>#small.foo</strong> selects all elements with <strong>id='small'</strong> that also have <strong>class='foo'</strong>",
-    "HTMLviewer": " <lamp item='q1'/> <lamp class='small' item='q2'/>  <mat item='q3'><book class='small moved' item='q4'/></mat> <book item='q5'> <book item='q6'/> </book> <book item='q7'> <book class='small moved' item='q8'/> </book> "
+    "HTMLviewer": " <lamp class='small' item='q2'/>  <mat item='q3'><book class='small moved' item='q4'/></mat> <book item='q5'> <book item='q6'/> </book> <book item='q7'> <book class='small moved' item='q8'/> </book> "
   },
   "8": {
     "taskName": "Select the small tel on the mat",
@@ -96,16 +96,16 @@
     "instructionSurName": "Combine the Universal Selector <strong>A  *</strong>",
     "instruction": "This selects all elements inside of <strong>A.</strong>",
     "examples": "<strong>p *</strong> selects every element inside all <tag>p</tag> elements. </br> <strong>ul.fancy *</strong> selects every element inside all <tag>ul class='fancy'</tag> elements.",
-    "HTMLviewer": "<book id='HarryPotter' item='q1'><book class='small moved' item='q2'/></book><book item='q3'><tel class='moved' item='q4'/></book><clock item='q5'/><book item='q6'><lamp class='moved' item='q7'/></book>"
+    "HTMLviewer": "<book item='q1' id='HarryPotter'><book class='small moved' item='q2'/></book><book item='q3'><tel class='moved' item='q4'/></book><clock item='q5'/><book item='q6'><lamp class='moved' item='q7'/></book>"
   },
   "12": {
-    "taskName": "Select every tel that's next to a mat",
-    "selector": "book + tel",
+    "taskName": "Select every tel that's next to a flower",
+    "selector": "flower + tel",
     "instructionName": "Adjacent Sibling Selector",
     "instructionSurName": "Select an element that directly follows another element <strong>A + B</strong>",
     "instruction": "This selects all <strong>B</strong> elements that directly follow <strong>A</strong>. Elements that follow one another are called siblings. They're on the same level, or depth. In the HTML markup for this level, elements that have the same indentation are siblings.",
     "examples": "<strong>p + .intro</strong> selects every element with <strong>class='intro'</strong> that directly follows a <tag>p</tag> </br> <strong>div + a</strong> selects every <tag>a</tag> element that directly follows a <tag>div</tag>",
-    "HTMLviewer": "<mat item='q1'><tel class='small green' item='q2'/></mat> <book item='q3'/> <tel class='small moved' item='q4'/> <book item='q5'/> <tel class='moved' item='q6'/> <tel class='small green' item='q7'/>"
+    "HTMLviewer": "<flower item='q1'/> <tel class='small moved' item='q4'/> <flower item='q5'/> <tel class='moved' item='q6'/> <tel class='small green' item='q7'/>"
   },
   "13": {
     "taskName": "Select the lamps beside the mat",

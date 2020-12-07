@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rs-css</title>
-    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/styles/default.min.css"> -->
 </head>
 
 <body>
@@ -13,6 +12,11 @@
         <div class="logo">
             <img src="./assets/images/book.png" alt="">
             <h1>CSS Disign</h1>
+        </div>
+        <div class="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </header>
 
@@ -48,35 +52,42 @@
             <div class="all-levels__circle level-off" id="level-19">19</div>
             <div class="all-levels__circle level-off" id="level-20">20</div>
         </div>
-    </section>
-
-    <section class="task">
-        <div class="task-wrapper">
-            <div class="task-wrapper__info">
-                <h3 class="instructions-name">Child Selector</h3>
-                <h4 class="instructions-surName">Select direct children of an element
-                    <strong>&nbsp;A > B&nbsp;</strong></h4>
-                <p class="task-wrapper__info_instructions">
-                    You can select elements that are direct children
-                    of other elements. A child element is any element
-                    that is nested directly in another element.
-                    Elements that are nested deeper than that are called
-                    descendant elements.
-                </p>
-            </div>
-            <div class="task-wrapper__delimiter"></div>
-            <div class="task-wrapper__examples">
-                <h3>Examples</h3>
-                <p class="task-wrapper__examples_text">
-                    <strong>&nbsp;A > B&nbsp;</strong> selects all
-                    <strong>&nbsp;B&nbsp;</strong> that are a
-                    direct children <strong>&nbsp;A&nbsp;</strong>
-                </p>
+        <div class="task">
+            <div class="task-wrapper">
+                <div class="task-wrapper__info">
+                    <h3 class="instructions-name">Child Selector</h3>
+                    <h4 class="instructions-surName">Select direct children of an element
+                        <strong>&nbsp;A > B&nbsp;</strong></h4>
+                    <p class="task-wrapper__info_instructions">
+                        You can select elements that are direct children
+                        of other elements. A child element is any element
+                        that is nested directly in another element.
+                        Elements that are nested deeper than that are called
+                        descendant elements.
+                    </p>
+                </div>
+                <div class="task-wrapper__delimiter"></div>
+                <div class="task-wrapper__examples">
+                    <h3>Examples</h3>
+                    <p class="task-wrapper__examples_text">
+                        <strong>&nbsp;A > B&nbsp;</strong> selects all
+                        <strong>&nbsp;B&nbsp;</strong> that are a
+                        direct children <strong>&nbsp;A&nbsp;</strong>
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
+
+
     <section class="viewer">
+        <div class="switch">
+            <div class="switch-wrapper">
+                <div class="switch-wrapper_viewer">Viewer</div>
+                <div class="switch-wrapper_editor active-editor">Editor</div>
+            </div>
+        </div>
         <div class="viewer-wrapper">
             <div class="viewer__header">
                 <p class="viewer__header_name">HTML Viewer</p>
@@ -153,7 +164,13 @@
                 <input class="editor__window_input" autofocus type="text" placeholder="Type in a CSS selector">
                 <button class="editor__window_btn">Enter</button>
                 <button class="editor__window_btn-help">Help</button>
-                <div class="editor__window_code">
+                <div class="editor__window_code"> {</br>
+                    /* Styles would go here. */
+                    </br>}</br></br>
+                    {</br>
+                    Type a number to skip to a level.</br>
+                    Ex → "5" for level 5</br>
+                    </br>}
                 </div>
                 <button class="editor__window_btn-reset-levels">Reset Progress</button>
             </div>
@@ -177,13 +194,24 @@
         <div class="footer-wrapper">
             <div class="footer-wrapper__logo"></div>
             <div class="footer-wrapper__info">
-                CSS Disign is created by Dosenk &nbsp;
+                CSS Disign is created by Dosenk 2020 &nbsp;
                 <a href="https://github.com/dosenk" target="_blank">GitHub</a> &#x25CF;
                 <a href="https://www.facebook.com/dmtr.osipenko" target="_blank">Facebook</a>
                 <img class="footer__info_logo" src="./assets/images/rs_school_logo.svg" alt="rs-school">
             </div>
         </div>
     </footer>
+
+    <div class="modal">
+        <div class="modal_window animate__animated">
+            <div class="modal_window__info">
+                <p></p>
+            </div>
+            <div class="modal_window__btn">
+                <button>OK</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

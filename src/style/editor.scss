@@ -1,11 +1,20 @@
 .editor {
+  z-index: 1;
   width: 50%;
-  height: 50vh;
   position: absolute;
   right: 0;
   top: 360px;
   font-family: 'FiraCode-Medium', monospace;
   @include dFlex();
+  @media screen and (max-width: 1024px) {
+    top: 315px;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 500px;
+    top: 375px;
+    left: 50%;
+    transform: translate(-50%);
+  }
   &-wrapper {
     width: 90%;
     min-width: 420px;
@@ -13,6 +22,9 @@
     @include dFlex(space-around);
     flex-wrap: wrap;
     border: solid 1px rgba(0, 0, 0, 0.35);
+    @media screen and (max-width: 1000px) {
+      width: 480px;
+    }
   }
   &__header {
     flex: 1 1 100%;
@@ -52,7 +64,7 @@
       border: none;
       background-color: inherit;
       color: #c6c6c6;
-      width: 85%;
+      width: 70%;
       border-bottom: 1px solid #c6c6c6;
       &:focus,
       :active {
@@ -60,7 +72,7 @@
       }
     }
     &_code {
-      padding-left: 20px;
+      color: dimgray;
     }
     &_btn-reset-levels {
       position: absolute;

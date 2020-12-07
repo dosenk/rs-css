@@ -1,14 +1,35 @@
 body {
   font-family: 'NerkoOne';
+  width: 100%;
+  height: 100vh;
+  @media screen and (max-width: 1000px) {
+    overflow: hidden;
+  }
 }
 
 .page {
+  z-index: 1;
   float: right;
   position: relative;
-  top: 50px;
   width: 50%;
+  height: 100vh;
+  background-color: #ffffff;
+
+  @media screen and (max-width: 1024px) {
+    top: 35px;
+  }
+  @media screen and (max-width: 1000px) {
+    float: none;
+    position: fixed;
+    top: 0;
+    width: 500px;
+    right: -500px;
+    transition: right 0.5s ease;
+  }
   .level {
     @include dFlex(space-around);
+    position: relative;
+    top: 50px;
     &-change {
       width: 60px;
       height: 60px;
@@ -44,6 +65,8 @@ body {
   }
 
   .all-levels {
+    position: relative;
+    top: 50px;
     width: 98%;
     height: 40px;
     @include dFlex(space-around);
@@ -57,6 +80,10 @@ body {
       @include dFlex();
       color: #ffffff;
       transition: transform 0.2s ease;
+      @media screen and (max-width: 1280px) {
+        width: 18px;
+        height: 18px;
+      }
       &:hover {
         transform: scale(1.15);
         box-shadow: 0 0 5px 1px gray;
@@ -71,12 +98,78 @@ body {
       background-size: contain;
     }
     .level-help {
-      border: 5px solid burlywood;
+      border: 3px solid burlywood;
     }
     .active-level {
       color: black;
       background: url('./assets/images/level-circle-off.png') no-repeat;
       background-size: contain;
+    }
+  }
+
+  .task {
+    width: 100%;
+    position: relative;
+    top: 60px;
+    &-wrapper {
+      margin: 0 auto;
+      margin-top: 5px;
+      width: 98%;
+      @include dFlex(space-between, flex-start);
+      font-family: 'IndieFlower-Regular', cursive;
+      strong {
+        background-color: burlywood;
+        padding: 0 4px;
+      }
+      tag {
+        background-color: burlywood;
+        font-weight: 800;
+        &::before {
+          content: '<';
+        }
+        &::after {
+          content: '>';
+        }
+      }
+      &__info {
+        width: 53%;
+        & > h3 {
+          text-align: center;
+          font-size: $middle-min_fs - 5px;
+          font-weight: 600;
+          color: navy;
+          letter-spacing: 0.5px;
+        }
+        & > h4 {
+          font-size: $small-fs;
+          font-weight: 600;
+        }
+        & > p {
+          margin-top: 7px;
+          line-height: 20px;
+        }
+      }
+      &__examples {
+        width: 43%;
+        & > h3 {
+          text-align: center;
+          font-size: $middle-min_fs - 5px;
+          font-weight: 600;
+          color: navy;
+          letter-spacing: 0.5px;
+        }
+        & > p {
+          margin-top: 7px;
+          line-height: 20px;
+        }
+      }
+      &__delimiter {
+        position: absolute;
+        width: 1px;
+        border-left: 2px solid black;
+        height: 85%;
+        left: 54%;
+      }
     }
   }
 }
