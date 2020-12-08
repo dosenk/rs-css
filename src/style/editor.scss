@@ -7,11 +7,11 @@
   font-family: 'FiraCode-Medium', monospace;
   @include dFlex();
   @media screen and (max-width: 1024px) {
-    top: 315px;
+    top: 300px;
   }
   @media screen and (max-width: 1000px) {
     width: 500px;
-    top: 375px;
+    top: 315px;
     left: 50%;
     transform: translate(-50%);
   }

@@ -8,11 +8,11 @@
   @include dFlex();
   flex-direction: column;
   @media screen and (max-width: 1024px) {
-    top: 290px;
+    top: 300px;
   }
   @media screen and (max-width: 1000px) {
     width: 500px;
-    top: 350px;
+    top: 290px;
     left: 50%;
     transform: translate(-50%);
   }

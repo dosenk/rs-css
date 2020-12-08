@@ -4,6 +4,7 @@ body {
   height: 100vh;
   @media screen and (max-width: 1000px) {
     overflow: hidden;
+    min-height: 768px;
   }
 }
 
@@ -16,7 +17,7 @@ body {
   background-color: #ffffff;
 
   @media screen and (max-width: 1024px) {
-    top: 35px;
+    top: -20px;
   }
   @media screen and (max-width: 1000px) {
     float: none;
@@ -111,6 +112,9 @@ body {
     width: 100%;
     position: relative;
     top: 60px;
+    @media screen and (max-width: 1000px) {
+      top: 48px;
+    }
     &-wrapper {
       margin: 0 auto;
       margin-top: 5px;
@@ -143,10 +147,21 @@ body {
         & > h4 {
           font-size: $small-fs;
           font-weight: 600;
+          @media screen and (max-width: 1024px) {
+            font-size: 15px;
+          }
         }
         & > p {
           margin-top: 7px;
           line-height: 20px;
+          @media screen and (max-width: 1024px) {
+            line-height: 16px;
+            font-size: 14px;
+          }
+          @media screen and (max-width: 1000px) {
+            line-height: 14px;
+            font-size: 13px;
+          }
         }
       }
       &__examples {
@@ -161,6 +176,10 @@ body {
         & > p {
           margin-top: 7px;
           line-height: 20px;
+          @media screen and (max-width: 1024px) {
+            line-height: 16px;
+            font-size: 14px;
+          }
         }
       }
       &__delimiter {
