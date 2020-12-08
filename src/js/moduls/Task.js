@@ -172,6 +172,7 @@ export default class Task {
   }
 
   getAnswer() {
+    this.editorInput.focus();
     this.help = 1;
     const answer = this.dataOfLevel.selector;
     let i = 0;

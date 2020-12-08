@@ -58,6 +58,9 @@
     padding: 7px 0 0 7px;
     margin-right: 1px;
     margin-bottom: 1px;
+    button {
+      cursor: pointer;
+    }
     @include setFont($FiraCode-Regular, 13px, #c6c6c6, 1.39em);
     &_input {
       box-sizing: border-box;
@@ -75,9 +78,10 @@
       color: dimgray;
     }
     &_btn-reset-levels {
+      cursor: pointer;
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: 5px;
+      right: 5px;
     }
   }
 }
